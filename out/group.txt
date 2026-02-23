@@ -1,0 +1,1845 @@
+CHAP           TER             2
+
+
+
+G    r o u p s
+
+
+
+
+                               II est peu de notions en mathematiques qui soient plus primitives
+                                                                 que celle de loi de composition.
+                                                                                —Nicolas Bourbaki
+
+
+2.1 LAWS OF COMPOSITION
+A law o f composition on a set S is any rule for combining pairs a, b of elements of S to get
+another element, say p, of S. Some models for this concept are addition and multiplication
+of real numbers. Matrix multiplication on the set of n X n matrices is another example.
+      Formally, a law of composition is a function of two variables, or a map
+
+                                            S x S -+ S.
+
+Here S X S denotes, as always, the product set, whose elements are pairs a, b of elements
+of S.
+      The element obtained by applying the law to a pair a, b is usually written using a
+notation resembling one used for multiplication or addition:
+
+                                   p = ab, a x b,    a 0 b, a + b,
+
+or whatever, a choice being made for the particular law in question. The element p may be
+called the product or the sum of a and b, depending on the notation chosen.
+       We will use the product notation ab most of the time. Anything done with product
+notation can be rewritten using another notation such as addition, and it will continue to be
+valid. The rewriting is just a change of notation.
+       It is important to note right away that ab stands for a certain element of S, namely for
+the element obtained by applying the given law to the elements denoted by a and b. Thus
+if the law is matrix multiplication and if a =               and b                , then ab denotes
+             '7 3
+the matrix           . Once the product ab has been evaluated, the elements a and b cannot
+              4 2
+be recovered from it.
+       With multiplicative notation, a law of composition is associative if the rule
+
+(2.1.1)                        (ab)c = a(bc)        (associative law)
+
+
+                                                                                                 37
+38   Chapter 2      Groups
+
+holds for all a, b, c in S, where (ab)c means first multiply (apply the law to) a and b, then
+multiply the result ab by c. A law of composition is commutative if
+
+(2.1.2)                            ab = ba      (commutative law)
+
+holds for all a and b in S. Matrix multiplication is associative, but not commutative.
+       It is customary to reserve additive notation a + b for commutative laws - laws such
+that a + b = b + a for all a and b. Multiplicative notation carries no implication either way
+concerning commutativity.
+       The associative law is more fundam ental than the commutative law, and one reason for
+this is that composition of functions is associative. Let T be a set, and let g and f be maps
+(or functions) from T to T. Let go f denote the composed map t",. g(f(t)): first apply f ,
+then g. The rule
+                                             g, f -^ g o f
+is a law of composition on the set of maps T -+ T. This law is associative. If J, g, and h are
+three maps from T to T, then (h o g) o f = h o(g o j):
+
+                                                         hog
+
+
+                                              g» f
+
+
+Both of the composed maps send an element t to h(g(f(t»)).
+     When T contains two elements, say T = {a, b}, there are four maps T                T:
+
+                      i: the identity map, defined by i(a) = a, i(b) = b;
+                      r: the transposition, defined by r(a ) = b, r(b) = a;
+                     a: the constant function a (a ) = a (b) = a;
+                      fJ: the constant function fJ (a) = fJ (b) = b.
+
+The law of composition on the set           {i, r, a , fJ} of maps T     T can be exhibited in a
+multiplication table:
+
+                                               i     r    a  fJ
+                                       i       i     r    a  fJ
+(2.1.3)                                r       r     i    fJ a
+                                       a       a     a    a a
+                                       fJ
+which is to be read in this way:
+                                                          f
+
+
+                                       g                 gof
+
+Thus r o a = f3, while a o r = a. Composition of functions is not a commutative law.
+                                                               Section 21   Laws of Composition      39
+
+       Going back to a general law of composition, suppose we want to define the product of
+a string of n elements of a set: a\ a 2 • • • an = ? There are various ways to do this using the
+given law, which tells us how to multiply two elements. For instance, we could first use the
+law to find the product a ia 2, then multiply this element by as, and so on:
+                                         ((a 1 a 2 )a 3 )a 4     .
+There are several other ways to form a product with the elements in the given order, but if
+the law is associative, then all of them yield the same element of S. This allows us to speak
+of the product of an arbitrary string of elements.
+
+Proposition 2.1.4 Let an associative law of composition be given on a set S. There is a
+unique way to define, for every integer n, a product of n elements a i, . . . , an of S, denoted
+temporarily by [ai • • • a n], with the following properties:
+  (i) The product [ad of one element is the element itself.
+ (ii) The product [aia2] of two elements is given by the law of composition.
+(iii) For any integer i in the range 1     i < n, [aj ■ ■ ■ an] = [a\• • a;][a;+i . . . an].
+
+The right side of equation (iii) means that the two products [ai . . . a ,] and [a(+i ... an] are
+formed first, and the results are then multiplied using the law of composition.
+
+Proof. We use induction on n. The product is defined by (i) and (ii) for n        2, and it does
+satisfy (iii) when n = 2. Suppose that we have defined the product of r elements when
+r n — 1, and that it is the unique product satisfying (iii). We then define the product of n
+elements by the rule
+                                  [ai • • •an] = [ai •••an-i][an],
+where the terms on the right side are those already defined. If a product satisfying (iii) exists,
+then this formula gives the product because it is (iii) when i = n — 1. So if the product of n
+elements exists, it is unique. We must now check (iii) for i < n — 1:
+
+            [aj • • - an] = [ai • • ■ an^\][an]                   (our definition)
+                         = ([aj • • • a,][a!+i • • • an-i])[an] (induction hypothesis)
+                         = [a i ■ • • a,-]([a,-+i • •. an-i][an]) (associative law)
+                         = [ai •. -ad[a(+i • •              a n] (induction hypothesis).
+
+This completes the proof. We will drop the brackets from now on and denote the product by
+a i "*•an•                                                                                           □
+      An identity for a law of composition is an element e of S such that
+
+(2.1.5)                        ea = a and ae = a, for all a in S.
+
+There can be at most one identity, for if e and e' are two such elements, then since e is an
+identity, ee' = e', and since e' is an identity, e = ee'. Thus e = ee' = e'.
+      Both matrix multiplication and composition of functions have an identity. For n X n
+matrices it is the identity matrix I, and for the set of maps T —> T it is the identity map - the
+map that carries each element of T to itself.
+40    Chapter 2     Groups
+
+• The identity element will often be denoted by 1 if the law of composition is written
+multiplicatively, and by 0 if the law is written additively. These elements do not need to be
+related to the numbers 1 and 0, but they share the property of being identity elements for
+their laws of composition.
+     Suppose that a law of composition on a set S, written multiplicatively, is associative
+and has an identity 1. An element a of S is invertible if there is another element b such that
+                                      ab = I and ba =      1   ,
+and if so, then b is called the inverse of a. The inverse of an element is usually denoted by
+a-1, or when additive notation is being used, by -a.
+      We list without proof some elementary properties of inverses. All but the last have
+already been discussed for matrices. For an example that illustrates the last statement, see
+Exercise 1.3.
+      • If an element a has both a left inverse l and a right inverse r, i.e., if la = 1 and
+        ar = 1, then l = r, a is invertible, r is its inverse.
+      • If a is invertible, its inverse is unique.
+      • Inverses multiply in the opposite order: If a and b are invertible, so is the product
+        ab, and (ab)~l = b~l a~J.
+      • An element a may have a left inverse or a right inverse, though it is not invertible.
+      Power notation may be used for an associative law: With n > 0, an = a - . a (n factors),
+a -n = a -1 • ■. a~i, and a 0 = 1. The usual rules for manipulation of powers hold: ara s = ar+s
+and (ary = ars. When additive notation is used for the law of composition, the power
+notation an is replaced by the notation na = a + • • • + a.
+      Fraction notation | is not advisable unless the law of composition is commutative,
+because it isn’t clear from the notation whether the fraction stands for ba-    1 or for a~l b, and
+
+these two elements may be different.
+
+2.2   GROUPS AND SUBGROUPS
+A group is a set G together with a law of composition that has the following properties:
+      • The law of composition is associative: (ab)c = a(bc) for all a, b, c in G.
+      • G contains anidentity element 1, such that la = a and a l = a for all a in G.
+      • Every element a of G has an inverse, an element b such that ab = 1 and ba = 1.
+An abelian group is a group whose law of composition is commutative.
+       For example, the set of nonzero real numbers forms an abelian group under multipli­
+cation, and the set of alt real numbers forms an abelian group under addition. The set of
+invertible n X n matrices, the general linear group, is a very important group in which the
+law of composition is matrix multiplication. It is not abelian unless n = 1.
+       When the law of composition is evident, itis customary to denote a group and the set
+of its elements by the same symbol.
+       The order of a group G is the number of elements that it contains. We will often denote
+the order by |G|:
+(2.2.1)                  I G | = number of elements, the order, of G.
+                                                             Section 2.2          Groups and Subgroups   41
+
+If the order is finite, G is said to be a finite group. If not, G is an infinite group. The same
+terminology is used for any set. The order |S| of a set S is the number of its elements.
+       Here is our notation for some familiar infinite abelian groups:
+                           the set of integers, with addition as itslaw of composition
+(2.2.2)
+                           - the additive group of integers,
+                           the set of real numbers, with addition as its law of
+                           composition - the additive group of real numbers;
+                           the set of nonzero real numbers, with multiplication as
+                           its law of composition - the multiplicative group,
+                           the analogous groups, where the set C of complex num­
+                           bers replaces the set JR of real numbers.
+
+Warning: Others might use the symbol JR+ to denote the set of positive real numbers. To
+be unambiguous, it might be better to denote the additive group of reals by (JR, +), thus
+displaying its law of composition explicitly. However, our notation is more compact. Also,
+the symbol JRx denotes the multiplicative group of nonzero real numbers. The set of all real
+numbers is not a group under multiplication because 0 isn’t invertible.                      □
+
+Proposition 2.2.3 Cancellation Law. Let a, b, c be elements of a group G whose law of
+composition is written multiplicatively. If ab = ac or if ba = ca, then b = c. If a b = a or if
+ba = a, then b = 1.
+
+Proof Multiply both sides of ab — ac on the left by a~1 to obtain b = c. The other proofs
+are analogous.                                                                                           □
+Multiplication by o f1 is essential for this proof. The Cancellation Law needn’t hold when
+the element a is not invertible. For instance,
+                               ' 1   r   ' i   r       ' 1    r   ' 3         '
+
+                                         _2        _              _     i _
+
+
+
+      Two basic examples of groups are obtained from laws of composition that we have
+considered - multiplication of matrices and composition of functions - by leaving out the
+elements that are not invertible .
+• The n Xn general linear group is the group of all invertible n Xn matrices. It is denoted by
+(2.2.4)                      G L n = {n X n invertible matrices A }.
+If we want to indicate that we are working with real or with complex matrices, we write
+G L n (JR) or G L n (C), according to the case.
+      Let M be the set of maps from a set T to itself. A map f : T -»• T has an inverse
+function if and only if it is bijective, in which case we say f is a permutation of T. The
+permutations of T form a group, the law being composition of maps. As in section 1.5, we
+use multiplicative notation for the composition of permutations, writing qp for q o p.
+• The group of permutations of the set of indices {l, 2, ... , n) is called the symmetric group,
+and is denoted by S„:
+(2.2.5)           Sn is the group of permutations of the indices 1, 2, . . . , n.
+42    Chapter 2       Groups
+
+  There are n! (n factorial’ = 1 2 -3- •. n) permutations of a set of n elements. so the
+  symmetric group Sn is a finite group of order n!.
+         The permutations of a set {a, b} of two elements are the identity i and the transposition
+  r (see 2. 1.3). They form a group of order two. If we replace a by 1 and b by 2, we see that
+  this is the same group as the symmetric group 5:). There is essentially only one group G of
+  order two. To see this, we note that one of its elements must be the identity 1; let the other
+  element be g. The multiplication table for the group contains the four products 11, lg, g1,
+  and gg. All except gg are determined by the fact that 1 is the identity element. Moreover,
+  the Cancellation Law shows that gg         g. The only possibility is gg = 1. So the multiplication
+  table is completely determined. There is just one group law.
+         We describe the symmetric group S 3 next. This group, which has order six, serves
+  as a convenient example because it is the smallest group whose law of composition isn’t
+. commutative. We will refer to it often. To describe it, we pick two particular permutations
+  in terms of which we can write all others. We take the cyclic permutation (123), and the
+  transposition (12), and label them as x and y, respectively. The rules
+
+
+ are easy to verify. Using the cancellation law, one seesthatthe six elements 1, x, x 2, y, xy, x 2y
+ are distinct. So they are the six elements of the group:
+ (2.2.7)              .              S3 = {1, x, x2; y, xy, x 2y }.
+In the future, we will refer to (2.2.6) and (2.2.7) as our “usual presentation” of the symmetric
+group S3. Note that 53 is not a commutative group, because yx*-xy.
+       The rules (2.2.6) suffice for computation. Any product of the elements x and y and of
+their inverses can be shown to be equal to one of the products (2.2.7) by applying the rules
+repeatedly. To do so, we move all occurrences of y to the right side using the last rule, and
+we use the first two rules to keep the exponents small. For instance,
+ (2.2.8)       x~xy 'x 2y = x 2y x 2y = x2(yx)xy = x 2(x2y)xy = xyxy = x(x2y)y = L.
+One can write out a multiplication table for 5:) with the aid of the rules (2.2.6), and because
+of this, those rules are called defining relations for the group. We study defining relations in
+Chapter 7.
+We stop here. The structure of Sn becomes complicated very rapidly as n increases.
+     One reason that the general linear groups and the symmetric groups are important is
+that many other groups are contained in them as subgroups. A subset H of a group G is a
+subgroup if it has the following properties:
+
+ (2.2.9)
+       • Closure: If a and b are in H, then ab is in H.
+       • Identity: 1 is in H.
+       • Inverses: If a is in H, then a     is in H.
+
+These conditions are explained as follows: The first one tells us that the law of composition
+on the group G defines a law of composition on H. called the induced law. The second and
+third conditions say that H is a group with respect to this induced law. Notice that (2.2.9)
+                                  Section 2.3     Subgroups of the Additive Group of Integers        43
+
+mentions all parts of the definition of a group except for the associative law. We don’t need
+to mention associativity. It carries over automatically from G to the subset H.
+Notes: (i) In mathematics, it is essential to learn the definition of each term. An intuitive
+feeling will not suffice. For example, the set T of invertible real (upper) triangular 2 X 2
+matrices is a subgroup of the general linear group G L         2 , and there is only one way to verify
+this, namely to go back to the definition. It is true that T is a subset of G L 2. One must verify
+that the product of invertible triangular matrices is triangular, that the identity is triangular,
+and that the inverse of an invertible triangular matrix is triangular. Of course these points
+are very easy to check.
+(ii) Closure is sometimes mentioned as one of the            axioms for a group, to indicate that the
+product ab of elements of G is again an element of           G. We include closure as a part of what
+is meant by a law of composition. Then it doesn’t           need to be mentioned separately in the
+definition of a group.                                                                                □
+
+Examples 2.2.10
+(a) The set of complex numbers of absolute value 1, the set of points on the unit circle in
+    the complex plane, is a subgroup of the multiplicative group Cx called the circle group.
+(b) The group of real n X n matrices with determinant 1 is a subgroup of the general linear
+    group G L„, called the special linear group. It is denoted by SL„:
+
+(2.2.11)        SLn (JR) is the set of real n X n matrices A with determinant equal to 1.
+The defining properties (2.2.9) are often very easy to verify for a particular subgroup, and
+we may not carry the verification out.
+• Every group G has two obvious subgroups: the group G itself, and the trivial subgroup
+that consists of the identity element alone. A subgroup is a proper subgroup if it is not one
+of those two.
+
+2.3 SUBGROUPS OF THE ADDITIVE GROUP OF INTEGERS
+We review some elementary number theory here, in terms of subgroups of the additive
+group Z+ of integers. To begin, we list the axioms for a subgroup when additive notation is
+used in the group: A subset 5 of a group G with law of composition written additively is a
+subgroup if it has these properties:
+
+(2.3.1)
+      • Closure: If a and b are in S, then a + b is in S.
+      • Identity: 0 is in S.
+      • Inverses: If a is in 5 then -a is in S.
+
+      Let a be an integer different from O. We denote the subset of Z that consists of all
+multiples of a by Z a:
+(2.3.2)                        Za = {n e Z | n = ka for some k in Z} .       '
+This is a subgroup of Z+. Its elements can also be described as the integers divisible by a.
+44    Chapter 2      Groups
+
+Theorem 2.3.3 Let S be a subgroup of the additive group Z+. Either S is the trivial subgroup
+{O}, or else it has the form Za, where a is the smallest positive integer in S.
+
+Proof Let S be a subgroup of Z+. Then 0 is in S, and if 0 is the only element of S then S
+is the trivial subgroup. So that case is settled. Otherwise, S contains an integer n different
+from 0, and either n or -n is positive. The third property of a subgroup tells us that -n is in
+S, so in either case, S contains a positive integer. We must show that S is equal to Za, when
+a is the smallest positive integer in S.                                              .
+       We first show that Za is a subset of S, in other words, that ka is in S for every integer
+k. If k is a positive integer, then ka = a + a + ■ ■ ■ + a (k terms). Since a is in S, closure and
+induction show that ka is in S. Since inverses are in S, -ka is in S. Finally, 0 = Oa is in S.
+       Next we show that S is a subset of Za, that is, every element n of S is an integer
+multiple of a. We use division with remainder to write n = qa + r, where q and r are integers
+and where the remainder r is in the range 0 < r < a. Since Za is contained in S, qa is in S,
+and of course n is in S. Since S is a subgroup, r = n - qa is in S too. Now by our choice, a is
+the smallest positive integer in S, while the remainder r is in the range 0 < r < a. The only
+remainder that can be in S is O. So r = 0 and n is the integer multiple qa of a.                   □
+      There is a striking application of Theorem 2.3.3 to subgroups that contain two integers
+a and b. The set of all integer combinations ra + sb of a and b,
+(2.3.4)           S = Za + Zb = {n € Z | n = ra + sb for some integers r, s }
+is a subgroup of Z+. It is called the subgroup generated by a and b because it is the smallest
+subgroup that contains both a and b. Let’s assume that a and b aren’t both zero, so that S
+is not the trivial subgroup {O}. Theorem 2.3.3 tells us that this subgroup S has the form Zd
+for some positive integer d; it is the set of integers divisible by d. The generator d is called
+the greatest common divisor of a and b, for reasons that are explained in parts (a) and (b)
+of the next proposition. The greatest common divisor of a and b is sometimes denoted by
+gcd(a, b).
+
+Proposition 2.3.5 Let a and b be integers, not both zero, and let d be their greatest common
+divisor, the positive integer that generates the subgroup S = Za + Zb. So Zd = Za + Zb.
+Then
+(a) d divides a and b.
+(b) If an integer e divides both a and b, it also divides d.
+(c) There are integers r and s such that d = ra + sb.
+
+Proof Part (c) restates the fact that d is an element of S. Next, a and b are elements of S
+and S = Zd, so d divides a and b. Finally, if an integer e divides both a and b, then e divides
+the integer combination r a + sb       d.                                                         □
+Note: If e divides a and b, then e divides any integer of the form rna + nb. So (c) implies
+(b). But (b) does not imply (c). As we shall see, property (c) is a powerful tool.          □
+      One can compute a greatest common divisor easily by repeated division with remainder:
+For example, if a = 314 and b = 136, then
+                    314 = 2-136 + 42,       136 = 3-42 + 10,    42 = 4 -10 + 2.
+                                 Section 2.3     Subgroups ofthe Additive Group of Integers       45
+
+Using the first of these equations, one can show that any integer combination of 314 and 136
+can also be written as an integer combination of 136 and the remainder 42, and vice versa. So
+Z(314) + Z(136) = Z (136) + Z (42), and therefore gcd(314, 136) = gcd(136, 42). Similarly,
+gcd(136, 42) = gcd(42, 10) = gcd(10, 2) = 2. So the greatest common divisor of 314 and 136
+is 2. This iterative method of finding the greatest common divisor of two integers is called
+the Euclidean Algorithm.
+       If integers a and b are given, a second way to find their greatest common divisor is
+to factor each of them into prime integers and then to collect the common prime factors.
+Properties (a) and (b) of Proposition 2.3.5 are easy to verify using this method. But without
+Theorem 2.3.3, property (c), that the integer determined by this method is an integer
+combination of a and b wouldn’t be clear at all. Let’s not discuss this point further here. We
+come back to it in Chapter 12.
+      Two nonzero integers a and b are said to be relatively prime if the only positive integer
+that divides both of them is 1. Then their greatest common divisor is 1: Za + Zb = Z.
+
+Corollary 2.3.6 A pair a, b of integers is relatively prime if and only if there are integers r
+and s such that ra + sb = 1.                                                                      □
+
+Corollary 2.3.7 Let p be a prime integer. If p divides a product ab of integers, then p
+divides a or p divides b.
+
+Proof Suppose that the prime p divides ab but does not divide a. The only positive divisors
+of p are 1 and p. Since p does not divide a, gcd(a, p) = 1. Therefore there are integers r
+and s such that ra + sp = 1. We multiply by b: rab + spb = b, and we         note that p divides
+both rab and spb. So p divides b.                                                            □
+      There is another subgroup of Z+ associated to a pair a, b of integers, namely the
+intersection Za n Zb, the set of integers contained both in Za and in Zb. We assume now
+that neither a nor b is zero. Then Za n Zb is a subgroup. It is not the trivial subgroup {OJ
+because it contains the product ab, which isn’t zero. So Za n Zb has the form Zm for some
+positive integer m. This integer m is called the least common mUltiple of a and b, sometimes
+denoted by lcm(a, b), for reasons that are explained in the next proposition.
+
+Proposition 2.3.8 Let a and b be integers different from zero, and let m be their least
+common multiple - the positive integer that generates the subgroup S = Za n Zb. So
+Zm = Za n Zb. Then
+(a) m is divisible by both a and b.
+(b) If an integer n is divisible by a and by b, then it is divisible by m.
+
+Proof. Both statements follow from the fact that an integer is divisible by a and by b if and
+only if it is contained in Zm = Za n Zb.                                                          □
+Corollary 2.3.9 Let d = gcd(a, b) and m = lcm(a, b) be the greatest common divisor and
+least common multiple of a pair a, b of positive integers, respectively. Then ab = dm.
+
+Proof Since b /d is an integer, a divides a b /d . Similarly, b divides a b /d . So m divides
+a b /d , and dm divides ab. Next, we write d = ra + sb. Then dm = ram + sbm. Both terms
+4fr   Chapter 2      Groups
+
+on the right are divisible by ab, so ab divides dm. Since ab and dm are positive and each
+one divides the other, ab = dm.                                                                       □
+
+2.4. CYCLIC GROUPS
+
+We come now to an important abstract example of a subgroup, the cyclic subgroup generated
+by an arbitrary element x of a group G. We use multiplicative notation. The cyclic subgroup
+H generated by x is the set of all elements. that are powers of x:
+
+(2.4.1)                        H = { . . . , x- 2 , x-1, 1 , x, x2 , ...} .
+
+This is the smallest subgroup of G that contains x, and it is often denoted by <x>. But to
+interpret (2.4.1) correctly, we must remember that the notation x” represents an element
+of the group that is obtained in a particular way. Different powers may represent the same
+element. For example, if G is the multiplicative group Kx and x = -1, then all elements in
+the list are equal to I or to -1, and H is the set {I, -I}.
+       There are two possibilities: Either the powers x” represent distinct elements, or they
+do not. We analyze the case that the powers of x are not distinct.
+
+Proposition 2.4..2 Let <x> be the cyclic subgroup of-a group G generated by an element x,
+and let S denote the set of integers k such that x^ = 1.
+(a) The set S is a subgroup of the additive group Z+.
+(b) i T*yo powers xr = x*, with r :: s, are equal if and only if xr s = 1, i.e., if and only if r - s
+      is in S.
+(c) Suppose that S is not the trivial subgroup. Then S = Zn for some positive integer n.
+     The powers 1, x, x2, •.., x” - 1 are the distinct elements of the subgroup < x >, and the
+      order of < x ) is n.
+
+Proof (a) If xk = 1 and x^ = 1, then x ^ + = xkx^ = 1. This shows that if k and t are in S,
+then k + I is in S. So the first property (2.3.1) for a subgroup is verified. Also, x0 = 1. so 0 is
+in S. Finally, if k is in S, i.e., x^ = 1, then x~* = (xk)-1 = I too, so - k is in S.
+(b) This follows from the Cancellation Law 2.2.3.
+(c) Suppose that S:;i:{O}. Theorem 2.3.3 shows that S = Zn, where n is the smallest positive
+integer in S. If x* is an arbitrary power, we divide k by n, writing k = qn + r with r in the
+range 0     r, < n. Then x^n = I q = 1, and x^ = x9”xr = xr. Therefore x* is equal to one of
+the powers 1, x, ..., x”_i. It follows from (b) -that these powers are distinct, because x” is
+the smallest positive power equal to 1.                                                        □
+
+      The group- <x> = {I, x, ..., x"-i} described by part (c) of this proposition is called a
+cyclic group oforder n. It is called cyclic because repeated multiplication by x cycles through
+the n elements.,
+      An, eleIl;u;p;t.x of . a group has order n i f n is the smallest positive integer with the
+property xn = 1, v.(hich is the same thing as saying that the. cyclic sub group <x> generated :
+by x has order n.
+      With the usual presen tation of the symmetric group S3, the element x has order 3, and
+y has ,order ,2: In any group., the identity element is the only.element of order 1.
+                                                            Section 2.5     Homomorphisms       47
+
+
+       If x n =1 1 for all n > 0 , one says that x has infinite order. The matrix      has
+                                      ' 1 1'
+infinite order in G L 2(K), while                has order 6.
+                                        _1 1.
+       When x has infinite order, the group <x> is said to be infinite cyclic. We won’t have
+much to say about that case.
+
+Proposition 2.4.3 Let x be an element of finite order n in a group, and let k be an integer
+that is written as k = nq + r where q and r are integers and r is in the range 0 < r < n.
+      • x k = x r.
+      • x k = 1 if and only if r = 0.
+      • Let d be the greatest common divisor of k and n. The order of x* is equal
+        to n /d .                                                                               □
+
+       One may also speak of the subgroup of a group G generated by a subset U. This is
+the smallest subgroup of G that contains U, and it consists of all elements of G that can be
+expressed as a product of a string of elements of U and of their inverses. A subset U of G
+is said to generate G if every element of G is such a product. For example, we saw in (2.2.7)
+that the set U = {x, y} generates the symmetric group S3. The elementary matrices generate
+G L n (1.2.16). In both of these examples, inverses aren’t needed. That isn’t always true. An
+infinite cyclic group <x> is generated by the element x, but negative powers are needed to
+fill out the group.
+       The Klein four group V, the group consisting of the four matrices
+
+(2.4.4)
+
+is the simplest group that is not cyclic. Any two of its elements different from the identity
+generate V. The quaternion group H is another example of a small group. It consists of the
+eight matrices
+
+(2.4.5)                            H = {± 1
+
+where
+                      '1 O'      'i  0'         ' 0                "0       i"
+                 1=         , I=                            1", k=
+                        0 1       0 - i " - J = -1          0"     .i       0'
+These matrices can be obtained from the Pauli matrices of physics by multiplying by i.
+The two elements i and j generate H. Computation leads to the formulas
+
+(2.4.6)       i2 = J2 = k2 = - 1 , ij = -ji = k , jk = -kj = i ,     ki = -ik = j.
+
+
+2.5   HOMOMORPHISMS
+Let G and G' be groups, written with multiplicative notation. A homomorphism cp: G -+ G'
+is a map from G to G' such that for all a and b in G,
+(2.5.1)                              cp(ab) = cp(a)cp(b).
+48    Chapter 2      Groups
+
+The left side of this equation means
+      first multiply a and b in G, then send the product to G ' using the map <p,
+while the right side means
+      first send a and b individually to G ' using the map <p, then multiply their images in G'.
+Intui tively, a homomorphism is a map that is compatible with the laws of composition in the
+two groups, and it provides a way to relate different groups.
+
+Examples 2.5.2     The following maps are homomorphisms:
+(a)   the determinant function det: G Ln(M) -+ Kx (1.4.10),
+(b)   the sign homomorphism ct : Sn -+ {±I} that sends a permutation to its sign (1.5.11),
+(c)   the exponential map exp: jR+ -+ Ex defined b y x -w eX,
+(d)   th e map <p:Z+ -+ G defined by <p(n) = a n, where a is a given element of G,
+(e)   the absolute value map I | : CX -+ ]R.X.
+
+      In examples (c) and (d), the law of composition is written additively in the domain and
+multiplicatively in the range. The condition (2.5.1) for a homomorphism must be rewritten
+to take this into account. It becomes
+                                       <p(a + b) = <p(a)<p(b).
+
+The formula showing that the exponential map is a homomorphism is              ea+b =, ea eb.
+       The following homomorphisms need to be mentioned, though they are less interesting.
+The trivial homomorphism <p: G -+ G ' between any two groups maps every element of G to
+the identity in G'. If H is a subgroup of G, the inclusion map i: H -+ G defined by i(x) = x
+for x in H is a homomorphism.
+
+Proposition 2.5.3 Let <p:G -+ G ' be a group homomorphism.
+(a) If ai, . . . , a* are elements of G, then <p(ai ... ak) = <p(ai) ■ ■ ■ <p(ak).
+(b) maps the identity to the identity: <p(1g ) = Ig'.
+(c) maps inverses to inverses: <p(a 1) = <p(a) l .
+
+Proof The first assertion follows by induction from the definition. Next, since 1 . 1 = 1 and
+since is a homomorphism, <p(1)<p(1) = <p(l . 1) = <p(l). We cancel <p(l) from both sides
+(2.2.3) to obtain <p(l) = 1. Finally, <p(a~l)<p(a) = <p(a- 1a) = <p(l) = 1. Hence <p(a-1) is the
+inverse of <p(a).                                                                             □
+
+       A group homomorphism determines two important subgroups: its image and its kernel.
+• The image of a homomorphism <p:G -+ G', often denoted by im <p, is simply the image of
+  as a map of sets:
+(2.5.4)                  im    = {x e G ' | x = <p(a) for some a in G ),
+
+Another notation for the image would be <p(G).
+                                                              Section 2.5      Homomorphisms        49
+
+        The image of the map Z+ -+ G that sends n -~+an is the cyclic subgroup < a > generated
+by a.
+      The image of a homomorphism is a subgroup of the range. We will verify closure and
+omit the other verifications. Let x and y be elements of the image. This means that there
+are elements a and b in G such that x = IP(a) and y = IP(b). Since IP is a homomorphism,
+x y = IP(a)IP(b) = IP(ab). So xy is equal to lP(something). It is in the image too.
+• The kernel of a homomorphism is more subtle and also more important. The kernel of IP,
+often denoted by ker IP, is the set of elements of G that are mapped to the identity in G':
+
+(2.5.5)                            kerIP = {a € G | IP(a) = 1}.
+
+The kernel is a subgroup of G because, if a and b are in the kernel, then IP(ab) = IP(a)IP(b) =
+1-1 = 1, so ab is in the kernel, and so on.
+      The kernel of the determinant homomorphism G L n (R) -+ jRx is the special linear
+group S L n(R) (2.2.11). The kernel of the sign homomorphism Sn -+ {± I} is called the
+alternating group. It consists of the even permutations, and is denoted by An:
+
+(2.5.6)           The alternating group An is the group of even permutations.
+
+      The kernel is important because it controls the entire homomorphism. It tells us not
+only which elements of G are mapped to the identity in G', but also which pairs of elements
+have the same image in G'.
+• If H is a subgroup of a group G and a is an element of G, the notation a H will stand for
+the set of all products ah with h in H:
+
+(2.5.7)                     a H = {g € G |g = ah for some h in H}.
+
+This set is called a left coset of H in G, the word “left” referring to the fact that the element
+a appears on the left.
+
+Proposition 2.5.8 Let IP : G -+ G ' be a homomorphism of groups, and let a and b be
+elements of G. Let K be the kernel of IP. The following conditions are equivalent:
+        • IP(a) = IP(b),
+        • a -l b is in K,
+        • b is in the coset aK ,
+        • The cosets bK and a K are equal.
+
+Proof Suppose that IP(a) = IP(b). Then IP(a- 1b) = IP(a-!)IP(b) = IP(a)- 1IP(b) = l.
+Therefore a - lb is in the kernel K. To prove the converse, we tum this argument around.
+If a -1b is in K, then 1 = IP(a-*b) = IP(a)-1IP(b), so IP(a) = IP(b). This shows that the first
+two bullets are equivalent. Their equivalence with the other bullets follows.                   □
+
+Corollary 2.5.9 A homomorphism IP: G -+ G' is injective if and only if its kernel K is the
+trivial subgroup {1} of G.
+50   Chapter 2       Groups
+
+Proof. If K = {I}, Proposition 2.5.8 shows that rp(a) = rp(b) only when a~1b = 1, i .e., a = b.
+Conversely, if rp is injective, then the identity is the only element of G such that rp(a) = 1,
+so K = {I}.                                                                                     □
+
+      The kernel of a homomorphism has another important property that is explained in
+the next proposition. If a and g are elements of a group G, the element gag- 1 is called the
+conjugate of a by g.
+
+Definition 2.5.10 A subgroup N of a group G is a normal subgroup if for every a in N and
+every g in G, the conjugate gag- 1 is in N.
+
+Proposition 2.5.11    The kernel of a homomorphism is a normal subgroup.
+
+Proof If a is in the kernel of a homomorphism rp: G -+ G ' and if g is any element of G,
+then rp(gag~x) = rp(g)rp(a)rp(g-1) = rp(g)lrp(g) - 1 = 1. Therefore gag- 1 is in the kernel
+too.                                                                                        □
+      Thus the special linear group S L n(W) is a normal subgroup of the general linear group
+GLn(lR.), and the alternating group An is a normal subgroup of the symmetric group S„.
+Every subgroup of an abelian group is normal, because if G is abelian, then gag-1 = a for
+all a and all g in the group. But subgroups of nonabelian groups needn’t be normal. For
+example, in the symmetric group S3, with its usual presentation (2.2.7), the cyclic subgroup
+<y> of order two is not normal, because y is in G, but xyx-1 = x      2 y isn’t in <y>.
+
+
+• The center of a group G, which is often denoted by Z, is the set of elements that commute
+with every element of G:
+
+(2.5.12)                      Z = {z € G | zx = xz for all x € G }.
+
+It is always a normal subgroup of G. The center of the special linear group SL2 (JR) consists
+of the two matrices I, -I. The center of the symmetric group S„ is trivial if n :: 3.
+
+Example 2.5.13 A homomorphism rp:S4 -+ S3 between symmetric groups.
+      There are three ways to partition the set of four indices {I, 2, 3, 4} into pairs of subsets
+of order two, namely
+
+(2.5.14)             n j : {I, 2} U {3, 4}, n 2 : {I, 3} U {2, 4}, n 3 : {I, 4} U {2, 3}.
+
+An element of the symmetric group S4 permutes the four indices, and by doing so it
+also permutes these three partitions. This defines the map rp from S4 to the group of
+permutations of the set { n i, n 2, n 3}, which is the symmetric group S3. For example, the
+4-cycle p = (1234) acts on subsets of        order two as follows:
+
+                         {I, 2}   {2, 3} {I, 3}       {2, 4} {I, 4}                                  {I, 2}
+                         {2, 3}   {3, 4} {2, 4}       {I, 3} {3, 4} "'"{I, 4).
+
+Looking at this action, one sees that p acts on the set { n i, n 2, n 3} of partitions as the
+transposition ( n i n 3) that fixes n 2 and interchanges n i and n 3.
+                                                                  Section 2.6      Isomorphisms       51
+
+       If p and q are elements of S4, the product p q is the composed permutation p 0 q,
+and the action of pq on the set { n j, n 2. n 3} is the composition of the actions of q and p.
+Therefore q;(pq) = q;(p)q;(q), and cp is a homomorphism.
+       The map is surjective, so its image is the whole group S3. Its kernel can be computed.
+It is the subgroup of S4 consisting of the identity and the three products of disjoint trans­
+positions:
+(2.5.15)                   K = {l, (12)(34),      (13)(24),    (14)(23)}.                             □
+
+
+2.6   ISOMORPHISMS
+An isomorphism q;: G -+ G ' from a group G to a group G ' is a bijective group homomor­
+phism - a bijective map such that q;(ab) = q;(a)cp(b) for all a and b in G.
+
+Examples 2.6.1
+      • The exponential map eX is an isomorphism, when it is viewed as a map from the
+        additive group 1R+ to its image, the multiplicative group of positive real numbers.
+      • If a is an element of infinite order in a group G, the map sending n . . a ” is an
+        isomorphism from the additive group Z+ to the infinite cyclic subgroup < a> o f G.
+      • The set P of n Xn permutation matrices is a subgroup of G L n, and the map S„ -+ P
+        that sends a permutation to its associated matrix (1.5.7) is an isomorphism.        □
+
+      Corollary 2.5.9 gives us a way to verify that a homomorphism q; : G            -+ G ' is an
+isomorphism. To do so, we check that kerq; = {l}, which implies that q; is injective, and also
+that im q; = G ', that is, q; is surjective.
+
+Lemma 2.6.2 If q;: G -+ G' is an isomorphism, the inverse map q; - 1 : G' -+ G is also an
+isomorphism.
+
+Proof The inverse of a bijective map is bijective. We must show that for all x and y in G',
+q;- l (x)q;“ l (y) = q;~l ( x y ).We set a = q;-1^ ) , b = q;_1(y), and c = q;_1(xy). What has to
+be shown is that ab = c, and since q; is bijective, it suffi ces to show that q;(ab) = q;(c). Since
+cp is a homomorphism,
+                                q;(ab) = q;(a)q;(b) = xy = q;(c).                                     □
+
+       This lemma shows that when q;: G -+ G' is an isomorphism, we can make a computation
+in either group. then use q; or q; - 1 to carry it over to the other. So, for computation with the
+group law, the two groups have identical properties. To picture this conclusion intuitively,
+suppose that the elements of one of the groups are put into unlabeled boxes, and that
+we have an oracle that tells us, when presented with two boxes, which box contains their
+product. We will have no way to decide whether the elements in the boxes are from G or
+from G'.
+       Two groups G and G' are said to be isomorphic if there exists an isomorphism q; from
+G to G'. We sometimes indicate that two groups are isomorphic by the symbol «
+(2.6.3)                    G ~ G ' means that G is isomorphic to G '.
+52    Chapter 2     Groups
+
+Since isomorphic groups have identical properties, it is often convenient to identify them with
+each other when speaking informally. For instance, we often blur the distinction between
+the symmetric group Sn and the isomorphic group P of permutation matrices.
+• The groups isomorphic to a given group G form what is called the isomorphism class of G.
+      Any two groups in an i somorphism class are isomorphic. When one speaks ofclassifying
+groups, what is meant is to describe these isomorphism classes. This is too hard to do for all
+groups, but we will see that every group of prime order p is cyclic. So all groups of order
+p are isomorphic. There are two isomorphism classes of groups of order 4 (2.11.5) and five
+isomorphism classes of groups of order 12 (7.8.1).
+      An interesting and sometimes confusing point about isomorphisms is that there exist
+isomorphisms q; : G -+ G from a group G to itself. Such an isomorphism is called an
+automorphism. The identity map is an automorphism, of course, but there are nearly always
+others. The most important type of automorphism is conjugation: Let g be a fixed element
+of a group G. Conjugation by g is the map q; from G to itself defined by
+
+(2.6.4)                                    q;(x) = gxg-1^
+
+This is an automorphism because, first of all, it is a homomorphism:
+
+                        q;(xy) = gxyg -      = gxg- 1 g y g- 1 = q;(x)q;(y),
+
+and second, it is bijective because it has an inverse function - conjugation by g -1.
+      If the group is abelian, conjugation by any element g is the identity map: gxg -      1 = x.
+But any noncommutative group has nontrivial conjugations, and so it has automorphisms
+different from the identity. For instance, in the symmetric group S3, presented as usual,
+conjugation by y interchanges x and x 2.
+      As was said before, the element gxg- 1 is the conjugate of x by g, and two elements
+x and x' of a group G are conjugate if x' = g x g - 1 for some g in G. The conjugate g x g -1
+behaves in much the same way as the element x itself; for example, it has the same order in
+the group. This follows from the fact that it is the image of x by an automorphism. (See the
+discussion following Lemma 2.6.2.)
+Note: One may sometimes wish to determine whether or not two elements x and y of a
+group G are conjugate, i.e., whether or not there is an element g in G such that y = g x g -1.
+It is almost always simpler to rewrite the equation to be solved for g as yg = gx.                   □
+• The commutator aba-^b"       1   is another element associated to a pair a, b of elements of a
+group.
+      The next lemma follows by moving things from one side of an equation to the other.
+Lemma 2.6.5 Two elements a and b of a group commute, ab = ba, if and only if aba-             1    = b,
+and this is true if and only if a b a ^ b - 1 = 1.                                                   □
+
+2.7   EQUIVALENCE RELATIONS AND PARTITIONS
+A fundamental mathematical construction starts with a set S and forms a newsetby equating
+certain elements of S. For instance, we may divide the set of integers into two classes, the
+                                          Section 2.7     Equivalence Relations and Partitions      53
+
+even integers and the odd integers. The new set we obtain consists of two elements that
+could be called Even and Odd. Or, it is common to view congruent triangles in the plane
+as equivalent geometric objects. This very general procedure arises in several ways that we
+discuss here .
+• A partition n of a set S is a subdivision of S into nonoverlapping, nonempty subsets:
+
+(2.7.1)                     S = union of disjoint nonempty subsets.
+
+The two sets Even and Odd partition             the set of integers. With the usual notation,
+the sets
+
+(2.7.2)
+
+form a partition of the symmetric group S3.
+• An equivalence relation on a set S is a relation that holds between certain pairs of elements.
+
+
+
+
+      • transitive: If a ~ b and b      c , then a   c.
+      • symmetric: If a ~ b , then b ~ a.
+      • reflexive: For all a, a    a.
+      Congruence of triangles is an example of an equivalence relation on the set of triangles
+in the plane. If A , B, and C are triangles, and if A is congruent to B and B is congruent to
+C, then A is congruent to C, etc.
+      Conjugacy is an equivalence relation on a group. Two group elements are conjugate,
+a""b, if b = gag - 1 for some group element g. We check transitivity: Suppose that a""b
+and b ~ c. This means that b = giag ^1 and c = gibg ^ 1 for some group elements gi and g2.
+Then c = g2(giag11 ) g ^ = (g 2 g i)a ( g2 gi)~ \ so a       c.
+     The concepts of a partition of S and an equivalence relation on S                are logically
+equivalent, though in practice one may be presented with just one of the two.
+
+Proposition 2.7.4 An equivalence relation on a set S determines a partition of S, and
+conversely.
+
+Proof Given a partition of S, the corresponding equivalence relation is defined by the rule
+that a ~ b if a and b lie in the same subset of the partition. The axioms for an equivalence
+relation are obviously satisfied. Conversely, given an equivalence relation, one defines a
+partition this way: The subset that contains a is the set of all elements b such that a ~ b. This
+subset is called the equivalence class of a. We’ll denote it by Ca here:
+
+(2.7.5)                                 Ca = {b e S | a""b}.
+
+The next lemma completes the proof of the proposition.                                              □
+54    Chapter 2      Groups
+
+Lemma 2.7.6 Given an equivalence relation on a set S, the subsets of S that are equivalence
+classes partition S.
+
+Proof This is an important point, so we will check it carefully. We must remember that the
+notation Ca stands for a subset defined in a certain way. The partition consists of the subsets,
+and several notations may describe the same subset.
+       The reflexive axiom tells us that a is in its equivalence class. Therefore the class C a is
+nonempty, and since a can be any element, the union of the equivalence classes is the whole
+set S. The remaining property of a partition that must be verified is that equivalence classes
+are disjoint. To show this, we show:
+
+(2.7.7)           If Ca and Cb have an element in common, then C a = Cb.
+
+Since we can interchange the roles of a and b, it will suffice to show that if Ca and Cb have
+an element, say d, in common, then Cb C Ca, i.e., any element x of Cb is also in Ca. If          x is
+
+in Cb, then b ~ x. Since d is in both sets, a ~ d and b ~ d, and the symmetry property tells
+us that d ~ b. So we have a       d, d ~ b, and b ~ x. Two applications of transitivity show that
+a ~ x, and therefore that x is in Ca.                                                              □
+
+      For example, the relation on a group defined by a ~ b if a and b are elements of the
+same order is an equivalen ce relation. The corresponding partition is exhibited in (2.7.2) for
+the symmetric group S3.                                                         _
+      If a partition of a set S is given, we may construct a new set S whose elements are
+the subsets. We imagine putting the subsets into separate piles, and we regard the piles as
+the elements of our new set S. It seems advisable to have a notation to distinguish a subset
+from the element of the set S (the pile) that it represents. If U is a subset, we will denote by
+[U] the corresponding element of S. Thus if S is the set of integers and if Even and Odd
+denote the subsets of even and odd integers, respectively, then S contains the two elements
+[Even] and [Odd].
+      We will use this notation more generally. When we want to re gard a subset U of S as
+an element of a set of subsets of S, we denote it by [U].
+      When an equivalence relation on S is given, the equivalence classes form a partition,
+and we obtain a new set S whose elements are the equivalence classes [Ca] We can think of
+the elements of this new set in another way, as the set obtained by changing what we mean
+by equality among elements. If a and b are in S, we interpret a ~ b to mean that a and b
+become equal in S, because Ca = Cb. With this way of looking at it, the difference between
+the two sets S and S is that in S more elements have been declared “equal,” i.e., equivalent.
+It seems to me that we often treat congruent triangles this way in school.
+      For any equivalence relation, there is a natural surjective map
+
+(2.7.8)                                       n:S-+S
+
+that maps an element a of S to its equivalence class: n (a) = [Ca]. When we want to regard
+S as the set obtained from S by changing the notion of equality, it will be convenient to
+denote the element [Ca] of S by the symbol a. Then the map n becomes
+
+                                              n (a ) = a
+                                         Section 2.7     Equivalence Relations and Partitions     55
+
+We can work in S with the symbols used for elements of S, but with bars over them to
+remind us of the new rule:
+
+(2.7.9)                   If a and b are in S,   then Ii = b means a     b.
+
+A disadvantage of this bar notation is that many symbols represent the same element
+of S. Sometimes this disadvantage can be overcome by choosing a particular element, a
+representative element, in each equivalence class. For example, the even and the odd integers
+are often represented by 0 and 1:
+
+(2.7.10)                             {[Even], [Odd]} = {0, I}.
+
+Though the pile picture may be easier to grasp at first, the second way of viewing S is often
+better because the bar notation is easier to manipulate algebraically.
+
+The Equivalence Relation Defined by a Map
+
+Any map of sets f : S -+ T gives us an equivalence relation on its domain S. It is defined by
+the rule a b if f(a ) = fib ).
+• The inverse image of an element t of T is the subset of S consisting of all elements s such
+that f(s) = t. It is denoted symbolically as
+
+(2.7.11)                           r H t ) = {s e S I f(s ) = t} .
+
+This is symbolic notation. Please remember that unless f is bijective, r         1 will not be a map.
+The inverse images are also called the fibres of the map f , and the fibres that are not empty
+are the e quivalence_classes for the relation defined above.
+      Here the set S of equivalence classes has another incarnation, as the image of the map.
+The elements of the image correspond bijectively to the nonempty fibres, which are the
+equivalence classes.
+
+
+
+
+(2.7.12)              Some Fibres of the Absolute Value Map CX -+ ]RX.
+
+
+Example 2.7.13 If G is a finite group, we can define a map j : G -+ N to the set {I, 2, 3, ... }
+of natural numbers, letting f(a ) be the order of the element a of G. The fibres of this map
+are th e sets of elements with the same order (see (2.7.2), for example).                        □
+56    Chapter 2      Groups
+
+      We go back to a group homomorphism ({J: G -+ G'. The equivalence relation on G
+defined by ({J is usually denoted by =, rather than by and is referred to as congruence:
+
+(2.7.14)                              a = b if ({J(a) = ({J(b).
+
+We have seen that elements a and b of G are congruent, i.e., ({J(a) = ({J(b) , if and only if b is
+in the coset a K of the kernel K (2.5.8).
+
+Proposition 2.7.15 Let K be the kernel of a homomorphism ({J: G -+ G'. The fibre of ({J that
+contains an element a of G is the coset aK of K. These cosets partition the group G, and
+they correspond to elements of the image of ({J.                                           □
+
+
+
+
+(2.7.16)              A Schematic Diagram of a Group Homomorphism.
+
+2.8   COSETS
+As before, if H is a subgroup of G and if a is an element of G, the subset
+
+(2.8.1)                                a H = {ah | h in H}.
+
+is called a left coset. The subgroup H is a particular left coset because H = 1H.
+       The cosets of H in G are equivalence classes for the congruence relation
+
+(2.8.2)                         a = b if b = ah for some h in H.
+
+This is very simple, but let’s verify that congruence is an equivalence relation.
+Transitivity: Suppose that a = b and b e c . This means that b = ah and c = bh' for some
+elements h and h ' of H. Therefore c = ahh'. Since H is a subgroup, hh' is in H, and thus
+a = c.
+Symmetry: Suppose a = b, so that b = ah. Then a = bh-1 and h-1 is in H , so b = a.
+Reflexivity: a = a l and 1 is in H, so a = a.
+Notice that we have made use of all the defining properties of a subgroup here: closure,
+inverses, and identity.
+                                                                         Section 2.8      Cosets   57
+
+Corollary 2.8.3    The left cosets of a subgroup H of a group G partition the group.
+
+Proof. The left cosets are the equivalence classes for the congruence relation (2.8.2).            □
+     Keep in mind that the notation a H defines a certain subset of G. As with          any
+equivalence relation, several notations may define the same subset. For example, in the
+symmetric group S3, with the usual presentation (2.2.6), the element y generates a cyclic
+subgroup H = < y> of order 2. There are three left cosets of H in G:
+
+(2.8.4)       H = {I, y} = yH , x H = {x, xy} = xy H , x2 H = {x2, x2y) = x2yH.
+
+These sets do partition the group.
+      Recapitulating, let H be a subgroup of a group G and let a and b be elements of G.
+The following are equivalent:
+(2.8.5)
+      • b      = ah for some h in H, or,     a 1 b i s an element of      H,
+      • b      is an element of the               left coset a H ,
+      • the left cosets a H and bH are equal.
+     The number of left cosets of a subgroup is called the index of H in G. The index is
+denoted by
+
+(2.8.6)                                       [G :H ].
+
+Thus the index of the subgroup < y > of S3 is 3. When G is infinite, the index may be infinite
+too.
+
+Lemma 2.8.7 All left cosets aH of a subgroup H of a group G have the same order.
+
+Proof Multiplication by a defines a map H -+ aH that sends h              ah. This map is bijective
+because its inverse is multiplication by a - 1.                                                    □
+
+      Since the cosets all have the same order, and since they partition the group, we obtain
+the important Counting Formula
+
+(2.8.8)                                       \G\ = \H \[G :H ]
+                        (order o f G) = (order o f H) {number o f cosets),
+
+where, as always, \ G \ denotes the order of the group. The equality has the obvious meaning
+if some terms are infinite. For the subgroup <y> of S3, the formula reads 6 = 2           3.
+       It follows from the counting formula that the terms on the right side of (2.8.8) divide
+the left side. One of these facts is called Lagrange’s Theorem:
+
+Theorem 2.8.9 Lagrange’s Theorem. Let H be a subgroup of a finite group G. The order of
+H divides the order of G.                                                                          □
+
+Corollary 2.8.10    The order of an element of a finite group divides the order of the group.
+58   Chapter 2      Groups
+
+Proof. The order of an element a of a group G is equal to the order of the cyclic subgroup
+<a) generated by a (Proposition 2.4.2).                                                           □
+
+Corollary 2.8.11 Suppose that a group G has prime order p. Let a be any element of G
+other than the identity. Then G is the cyclic group <a> generated by a.
+
+Proof. The order of an element a*" 1 is greater than 1 and it divides the order of G, which
+is the prime integer p. So the order of a is equal to p. This is also the order of the cyclic
+subgroup < a > generated by a. Since G has order p, < a > = G.                                □
+This corollary classifies groups of prime order p. They form one isomorphism class, the class
+of the cyclic groups of order p.                                     '
+     The counting formula can also be applied when a homomorphism cp: G -+ G' is given.
+As we have seen (2.7.15), the left cosets of the kernel kercp are the nonempty fibres of the
+map cp. They are in bijective correspondence with the elements of the image.
+(2.8.12)                               [G:kercp] =|im cp|.
+
+Corollary 2.8.13   Let cp:G -+ G ' be a homomorphism of finite groups. Then
+      • |G | = |kercp| • |im cp|,
+      • |kercp| divides |G |, and
+      • |im cp| divides both |G | and |G '|
+
+Proof The first formula is obtained by combining (2.8.8) and (2.8.12), and it implies that
+Ikercpl and |im cp| divide |G|. Since the image is a subgroup of G', Lagrange’s theorem tells
+us that its order divides | G' | too.                                                         □
+      For example, the sign homomorphism (f: Sn ^             {±1} (2.5.2)(b) is surjective, so its
+image has order 2. Its kernel, the alternating group An, has order \n \. Half of the elements
+of Sn are even permutations, and half are odd permutations.
+      The Counting Formula 2.8.8 has an analogue when a chain of subgroups is given.
+
+Proposition 2.8.14 Multiplicative Property of the Index. Let G           H     K be subgroups of
+a group G. Then [G : K] = [G: H ][H : K].
+
+Proof We will assume that the two indices on the right are finite, say [G : H] = m and
+[H: K] = n. The reasoning when one or the other is infinite is similar. We list the m cosets
+of H in G, choosing representative elements for each coset, say as giH , . . . , gmH. Then
+81 H U • ■■ U gm H is a partition of G. Similarly, we choose representative elements for each
+coset of K in H , obtaining a partition H = h iK U ■ • • U hnK. Since multiplication by gi is
+an invertible operation, g ,H = g ih \K U- • ■ U g;hnK will be a partition of the coset giH .
+Putting these partitions together, G is partitioned into the m n cosets gjhj K.               □
+
+Right Cosets
+Let us go back to the definition of cosets. We made the decision to work with left cosets a R .
+One can also define right cosets of a subgroup H and repeat the above discussion for them.
+                                                                         Section 2.8      Cosets   59
+
+The right cosets of a subgroup H of a group G are the sets
+(2.8.15)                               Ha = {ha \ h e H }.
+They are equivalence classes for the relation (right congruence)
+                              a = b if b = ha, for some h in H.
+Right cosets also partition the group G, but they aren’t always the saine as left cosets. For
+instance, the right cosets of the subgroup < y > of S3 are
+(2.8.16)        H = {l, y} = H y,     Hx = {x, x2y} = H x2y , Hx2 = {x2, xy} = H xy.
+This isn’t the same as the partition (2.8.4) into left cosets. However, if a subgroup is normal,
+its right and left cosets are equal.
+
+Proposition 2.8.17     Let H be a subgroup of a group           G. The following conditions are
+equivalent:
+  (i) H is a normal subgroup: For all h in H and all g in G, ghg- 1 is in H.
+ (ii) For all g in G, gH g- 1 = H.
+(iii) For all g in G, the left coset gH is equal to the right coset Hg.
+(iv) Every left coset of H in G is a right coset.
+
+Proof The notation gH g-1 stands for the set of all elements ghg-1, with h in H.
+       Suppose that H is normal. So (i) holds, and it implies that gH g-1 C H for all g in G.
+Substituting g- 1 for g shows that g-1 Hg C H as well. We multiply this inclusion on the left
+by g and on the right by g- 1 to conclude that H C g H g -1. Therefore gH g- 1 = H. This
+shows that (i) implies (ii). It is clear that (ii) implies (i). Next, if g Hg- 1 = H, we multiply
+this equation on the right by g to conclude that g H = H g. This shows th at (ii) implies (iii).
+One sees similarly that (ii) implies (ii). Since (iii) implies (iv) is obvious, it remains only to
+check that (iv) implies (iii).
+       We ask: Under what circumstances can a left coset be equal to a right coset? We recall
+that the right cosets partition the group G, and we note that the left coset g H and the right
+coset H g have an element in common, namely g = g . 1 = 1 . g. So if the left coset gH is
+equal to any ri ght coset, that coset must be Hg.                                                  □
+
+Proposition 2.8.18
+(a) If H is a subgroup of a group G and g is an element of G, the set gH g- 1 is also a
+    subgroup.
+(b) If a group G has just one subgroup H of order r, then that subgroup is normal.
+
+Proof (a) Conjugation by g is an automorphism of G (see (2.6.4)), and gH g- 1 is the image
+of H. (b) See (2.8.17): gH g- 1 is a subgroup of order r.                                          □
+Note: If H is a subgroup of a finite group G, the counting formulas using right cosets or left
+cosets are the same, so the number of left cosets is equal to the number of right cosets. This
+is also true when G is infinite, though the proof can’t be made by counting (see Exercise
+M.8).                                                                                          □
+60    Chapter 2      Groups
+
+2.9   MODULAR ARITHMETIC
+This section contains a brief discussion of one of the most important concepts in number
+theory, congruence of integers. If you have not run across this concept before, you will want
+to read more about it. See, for instance, [Stark]. We work with a fixed positive integer n
+throughout the section.
+• Two integers a and b are said to be congruent modulo n
+
+(2.9.1)                                  a == b modulo n,
+
+if n divides b — a, or if b = a + n k for some integer k. For instance, 2 == 17 modulo 5.
+       It is easy to check that congruence is an equivalence relation, so we may consider
+the equivalence classes, called congruence classes, that it defines. We use bar notation, and
+denote the congruence class of an integer a modulo n by the symbol a. This congruence
+class is the set of integers
+(2.9.2)                   a = { . .. , a — n, a, a + n , a + 2n, . . . }.
+
+If a and b are integers, the equation a = b means that a == b modulo n, or that n divides
+b — a. The congruence class 0 is the subgroup
+                      0 = Zn = { . . . , -n , 0, n, 2n, . . . } = {kn I k e Z}
+of the additive group Z+. The other congruence classes are the cosets of this subgroup.
+Please note that Zn is not a right coset - it is a subgroup of Z+. The notation for a coset of
+a subgroup H analogous to aH , but using additive notation for the law of composition, is
+a + H = {a + h | h e H}. To simplify notation, we denote the subgroup Zn by H. Then
+the cosets of H , the congruence classes, are the sets
+
+(2.9.3)                            a + H = { a + kn I k e Z}.
+The n integers 0,1, . .. , n — 1 are representative elements for the n congruence classes.
+
+Proposition 2.9.4 There are n congruence classes modulo          n, namely 0, 1, ... , n — 1. The
+index [Z: Zn] of the subgroup Zn in Z is n.                                                    □
+
+       Let a and b be congruence classes represented by integers a and b. Their sum is defined
+to be the congruence class of a + b, and their product is the class of ab. In other words, by
+definition,
+(2.9.5)                          a+b=a+b           and ab — ab.
+
+This definition needs some justification, because the same congruence class can be repre­
+sented by many different integers. Any integer a' congruent to          a modulo n represents the
+same class as a does. So it had better be true that if a' == a and b' == b, then a' + b' == a + b
+and a'b' == ab. Fortunately, this is so.
+
+Lemma 2.9.6       If d == a and b' == b modulo n, then d + b’ == a + b and             a'b'==ab
+modulo n.
+                                              Section 2.10       The Correspondence Theorem        61
+
+Proof. Assume that a' = a and b' = b, so that a' = a + rn and b ' = b + sn for some
+integers r and s. Then a' + b' = a + b + (r + s)n. This shows that a ' + b '= a + b. Similarly,
+a'b' = (a + rn) (b + sn) = ab + (as + rb + rns)n, so a'b' = ab.                                 □
+
+     The associative, commutative, and distributive laws hold for addition and multiplication
+of congruence classes because they hold for addition and multiplication of integers. For
+example, the distributive law is verified as follows:
+
+       a(b + c) = a(b + (b+e) = a(b + c)     (definition o f + and Xfor congruence classes)
+                = ab + ac                    (distributive law in the integers)
+                = ab + ac = ab + a c         (definition o f + and Xfor congruence classes).
+
+The verifications of other laws are similar, and we omit them.
+      The set of congruence classes modulo n may be denoted by any one of the symbols
+Z /Z n, Z /nZ, or Z /(n ) . Addition, subtraction, and multiplication in Z/Zn can be made
+explicit by working with integers and taking remainders after division by n. That is what the
+formulas (2.9.5) mean. They tell us that the map
+
+(2.9.7)                                     Z -+ Z/Zn
+
+thatsends an integer a to its congruence class a is compatible with addition and multiplication.
+Therefore computations can be made in the integers and then carried over to Z /Z n at the
+end. However, computations are simpler if the numbers are kept small. This can be done by
+computing the remainder after some part of a computation ha^been made.
+      Thus ifn =_29, so that Z /Z n = {0, T, 2, ... , 28}, then (35)(17 + 7) can be computed
+as 35 . 24 = 6 . (-:5) = -30 = -1.
+      In the long run, the bars over the numbers become a nuisance. They are often left off.
+When omitting bars, one just has to remember this rule:
+
+(2.9.8)               To say a = b in Z/Z n means that a = b modulo n.
+
+     Congruences modulo a prime integer have special properties, which we discuss at the
+beginning of the next chapter.
+
+2.10      THE CORRESPONDENCE THEOREM
+Let <P: G -+ Q be a group homomorphism, and let H be a subgroup of G. We may restrict
+to H , obtaining a homomorphism
+
+(2.10.1)                                   CPIn:tf --+ g.
+
+This means that we take the same map    but restrict its domain: So by definition, if h is in
+H, then [<p| H](h) = <p(h). (We’ve added brackets around the symbol <P|# for clarity.) The
+restriction is a homomorphism because  is one, and the kernel of <P|H is the intersection of
+the kernel of      with H:
+
+(2.10.2)                           ker (<p|h ) = (ker<p) n H .
+62   Chapter 2      Groups
+
+This is clear from the definition of the kernel. The image of <p|   h is the same as the image
+<p(H) of H under the map <p.
+      The Counting Formula may help to describe the restriction. According to Corollary
+(2.8.13), the order of the image divides both |H | and |9|. If |H | and |9| have no common
+factor, <p(H) = {l}, so H is contained in the kernel.
+
+Example 2.10.3 The image of the sign homomorphism (f: Sn ^ { ± I} has order 2. If a
+subgroup H of the symmetric group Sn has odd order, it will be contained in the kernel
+of a, the alternating group An of even permutations. This will be so when H is the cyclic
+subgroup generated by a permutation q that is an element of odd order in the group. Every
+permutation whose order in the group is odd, such as an n-cycle with n odd, is an even
+permutation. A permutation that has even order in the group may be odd or even.           □
+
+Proposition 2.10.4 Let       : G -+ 9 be a homomorphism with kernel K and let H be a
+subgroup of g. Denote the inverse image <p-* ('H) by H. Then H is a subgroup of G that
+contains K. If H is a normal subgroup of g, then H is a normal subgroup of G. If     is
+surjective and if H is a normal subgroup of G, then H is a normal subgroup of 9.
+
+For example, let     denote the determinant homomorphism GLn(lR) -+          ]RX. The set of
+positive real numbers is a subgroup of JRX; it is normal because Kx is abelian. Its inverse
+image, the set of invertible matrices with positive determinant, is a normal subgroup of
+G L „(K ).
+Proof. This proof is simple, but we must keep in mind that <p-1 is not a map. By definition,
+<p-! (H) = H is the set of elements x of G such that <p(x) is in H. First, if x is in the kernel
+ K, then <p(x) = 1. Since 1 is in H, x is in H. Thus H con tains K. We verify the conditions
+for a subgroup.
+Closure: Suppose that x and y are in H . Then <p(x) and        (y) are in H. Since H is a subgroup,
+<p(x)<p(y) is in H. Since is a homomorphism, <p(x)<p(y) = <p(xy). So <p(xy) is in H, and
+xy is in H.
+Identity. 1 is in H because <p(1) = 1 is in H.
+Inverses: Let x be an element of H. Then         (x) is in 'H, and since 'H is a subgroup, <p(x)-1
+is also in H. Since is a homomorphism, <p(x)-1 = <p(x-1), so <p(x-1) is in H, and x - 1 is
+in H.
+       Suppose that H is a normal subgroup. Let x and g be elements of H and G, respec­
+tively. Then <p(gxg-J) = <p(g)<p(x)<p(g)-1 is a conjugate of <p(x) , and <p(x) is in 'H. Because
+'H is normal, <p(gxg-1) is in H, and therefore gxg-1 is in H.
+       Suppose that     is surjective, and that H is a normal subgroup of G. Let a be in
+H, and let b be in Q. There are elements x of H and y of G                     such that <p(x) = a
+and <p(y) = b. Since H is normal, yxy- 1 is in H, and therefore <p(yxy-J) = bab- 1 is
+m H.                                                                                                □
+
+Theorem 2.10.5 Correspondence Theorem. Let            : G -+ 9 be a surjective group homo­
+morphism with kernel K. There is a bijective correspondence between subgroups of 9 and
+subgroups of G that contain K:
+                  {subgroups of G that contain K} <— > {subgroups of g}.
+                                              Section 2.10      The Correspondence Theorem          63
+
+This corresponde nce is defined as follows:
+           a subgroup H of G that contains K           its image (fJ(ll) in g,
+                              a subgroup      o f9     its inverse image (fJ- 1 (1i) in G.
+
+If H and     are corresponding subgroups, then H is normal in G if and only if               is normal
+in g.
+If H and     are corresponding subgroups, then |H | = |1i||K |.
+
+Example 2.10.6 We go back to the homomorphism (fJ: S4 -)0 S 3 that was defined in Example
+2.5.13, and its kernel K (2.5.15).
+      The group S3 has six subgroups, four of them proper. With the usual presentation,
+there is one proper subgroup o f order 3, the cyclic group <x>, and there are three subgroups
+of order 2, including < y). The Correspondence Theorem tells us that there are four proper
+subgroups of S4 that contain K. Since |K | = 4, there is one subgroup of order 12 and there
+are three of order 8.
+      We know a subgroup of order 12, namely the alternating group A 4. That is the subgroup
+that corresponds to the cyclic group <x> of S3.
+       The subgroups of ord er 8 can be explain ed in terms of symmetries of a square. With
+vertices of the square labeled as in the figure below, a counterclockwise rotation through
+the angle 1 C/ 2 corresponds to the 4-cycle (12 34). Reflection about the diagonal through the
+vertex 1 corresponds to th e transposition (24). These two permutations generate a subgroup
+of order 8. The other subgroups of order 8 can be obtained by labeling the vertices in
+other ways.
+
+
+
+
+     There are also some subgroups of S4 that do not contain K. The Correspondence
+Theorem has nothing to say about those subgroups.                                  □
+
+P roofof the Correspondence Theorem.      Let H be a subgroup of G that contains K, and let
+   be a subgroup of g. We must check the following points:
+
+      • (fJ(ll) is a subgroup of g.
+      • (fJ-!(1i) is a subgroup of G, and it contains K.
+      •    is a normal subgroup of 9 if and only if (fJ-1 (1i) is a normal subgroup of G.
+      • (bijectivity o f the correspondence) (fJ((fJ_1(1i) ) = and (fJ-*((fJ(ll)) = H.
+      • |(fJ-l (1i)| = |1i||K|.
+
+Since (fJ(ll) is the image of the homomorphism (fJ|#, it is a subgroup of g. The second and
+third bullets form Proposition 2.10.4.
+       Concerning the fourth bullet, the equality (fJ((fJ_1(1i)) =      is true for any surjective
+map of sets (fJ: S -)0 S' and any subset      of S'. Also, H C (fJ_1((fJ(ll)) is true for any map
+64     Chapter 2     Groups
+
+rp of sets and any subset H of S. We omit the verification of these facts. Then the only
+thing remaining to be verified is that H :: rp_ l(rp(Il)). Let x be an element of rp-!(rp(.H)).
+We must show that x is in H. By definition of the inverse image, rp(x) is in rp(ll), say
+rp(x) = rp(a), with a in H . Then a~lx is in the kernel K (2.5.8), and since H contains K,
+a~1x is in H. Since both a and a -1x are in H, x is in H too.
+      We leave the proof of the last bullet as an exercise.                                     □
+
+2.11    PRODUCT GROUPS
+Let G , G' be two groups. The product set G X G ', the set of pairs of elements (a, a') with
+a in G and a ' in G ', can be made into a group by component-wise multiplication - that is,
+multiplication of pairs is defined by the rule
+(2.11.1)                           (a, d ) • (b, b ) = (ab, d b ').
+
+The pair (1, 1) is the identity, and the inverse of (a, a ' is (a -1, a d  ). The associative law in
+G X G' follows from the fact that it holds in G and in G'.
+      The group obtained in this way is called the product of G and G ' and is denoted by
+G X G ' It is related to the two factors G and G' in a simple way that we can sum up in terms
+of some homomorphisms
+                                     G    .                     G
+                                                           P
+                                                  GxG' :
+
+(2.11.2)                             G        V            P    G'                   .
+
+They are defined by V(x) = (x, 1),          i'(x') = (1, x'),    p(x, x') = x,    p '(x , x') = X. The
+injective homomorphisms i and V may be used to identify G and G ' with their images, the
+subgroups G X 1 and 1 x G ' of G x G'. The maps p and p ' are surjective, the kernel of p is
+1 x G', and the kernel of p ' is G x 1. These are the projections.
+       It is obviously desirable to decompose a given group G as a product, that is, to find
+groups H and H ' such that G is isomorphic to the product H X H'. The groups H and H '
+^ 1 be simpler, and the relation between H X H ' and its factors is easily understood. It is
+rare that a group is a product, but it does happen occasionally.
+       For example, it is rather surprising that a cyclic group of order 6 can be decomposed:
+A cyclic group C6 of order 6 is isomorphic to the product C 2 X C 3 of cyclic groups of orders
+2 and 3. To see this, say that C2 = <y> and C 3 = <z>, with y2 = 1 and z3 = 1, and let x
+denote the element (y, z) of the product group C2 X C3. The smallest positive integer k such
+that x k = (yk, z*) is the identity (1,1) is k =       6 . So x has order 6. Since C2 X C3 also has
+order 6, it is equal to the cyclic group <x>. The powers of x, in order, are
+                        (1, 1), (y, z), (1, z2), (y, l),       Q, z),   (y, z2).                    □
+      There is an analogous statement for a cyclic group of order rs, whenever the two
+integers r and s have no common factor.
+
+Proposition 2.11.3 Let r and s be relatively prime integers. A cyclic group of order rs is
+isomorphic to the product of a cyclic group of order r and a cyclic group of order s.               □
+                                                               Section 2.11   Product Groups      65
+
+On the other hand, a cyclic group of order 4 is not isomorphic to a product of two cyclic
+groups of order 2. Every element of Cz X Cz has order 1 or 2, whereas a cyclic group of order
+4 contains two elements of order 4.
+      The next proposition describes product groups.
+
+Proposition 2.11.4 Let H and K be subgroups of a group G, and let f : H X K -+ G be the
+multiplication map, defined by f(h ,k ) = hk. Its image is the set H K = {hk|h E H, k E K].
+(a) f is injective if and only if H n K = {l}.
+(b) f is a homomorphism from the product group H X K to G ifand only if elements of K
+    commute with elements of H: hk = kh.
+(c) If H is a normal subgroup of G, then H K is a subgroup of G.
+(d) f is an isomorphism from the product group H X K to G if and only if H n K = {1},
+    H K = G, and also H and K are normal subgroups of G.
+It is important to note that the multiplication map may be bijective though it isn’t a group
+homomorphism. This happens, for instance, when G = S3, and with the usual notation,
+H = < x) and K = < y).
+Proof (a) If H nK contains an element x:;t 1, then x      1 is in H, and f ( x 1, x) = 1 = f(1, 1),
+so f is not injective. Suppose that H n K = {1}. Let (hi, k\) and (hz, kz) be elements of
+H x K such that hiki = hzkz. We multiply both sides of this equation on the left by h         and
+on the right by k^1, obtaining kik^1 = hJl hz. The left side is an element of K and the right
+side is an element of H. Since H n K = {1}, ki k'21 = h j lh 2 = 1. Then ki = £2, h 1 = h 2 ,
+and (hi, ki) = (h2, k2).
+(b) Let (h i, ki) and (h2, £2) be elements ofthe product group H x K. The product ofthese
+elements in the product group H x K is (h ih 2, £1^2), and f(h ih z , kik2) = h ih 2kik2, while
+f(h i, k i)f (h 2, k2) = h ik ih 2k2. These elements are equal if and only if h2ki = k ih 2.
+(c) Suppose that H is a normal subgroup. We note that K H is a union of the left cosets
+k H with k in K, and that H K is a union of the right cosets Hk. Since H is normal,
+kH = Hk, and therefore H K = KH. Closure of H K under multiplication follows, because
+H K H K = H H K K = HK. Also, (hk)-1 = k_ih — is in K H = HK . This proves closure of
+H K under inverses.
+(d) Suppose that H and K satisfy the conditions given. Then f is both injective and surjective,
+so it is bijective. According to (b), it is an isomorphism if and only if hk = kh for all h in H
+and k in K. Consider the commutator (hkh_i)k_1 = h(kh~ik_1). Since K is normal, the left
+side is in K, and since H is normal, the right side is in H. Since H n K = {l}, hkh_1k_1 = 1,
+and hk = kh. Conversely, if f is an isomorphism, one may verify the conditions listed in the
+isomorphic group H X K instead of in G.                                                          □
+      We use this proposition to classify groups of order 4:
+
+Proposition 2.11.5 There are two isomorphism classes of groups of order 4, the class of the
+cyclic group C4 of order 4 and the class of the Klein Four Group, which is isomorphic to the
+product C 2 X C2 of two groups of order 2.
+66     Chapter 2     Groups
+
+Proof Let G be a group of order 4. The order of any element x of G divides 4, so there are
+two cases to consi der:
+Case 1: G contains an element of order 4. Then G is a cyclic group of order 4.
+Case 2: Every element of G except the identity has order 2.
+      In this case, x = [ I for every element x of G. Let x and y be two elements of G. Then
+xy has order 2, so xy[ _1 y-1 = (xy)(xy) = 1. This shows that x and y commute (2.6.5), and
+since these are arbitrary elements, G is abelian. So every subgroup is normal. We choose
+distinct elements x and y in G, and we let H and K be the cyclic groups of order 2 that they
+generate. Proposition 2.11.4(d) shows that G is isomorphic to the pro duct group H X K.      □
+
+2.12    QUOTIENT GROUPS
+In this section we show that a law of composition can be defined on the set of cosets of a
+normal subgroup N of any group G. This law makes the set of cosets of a normal subgroup
+into a group, called a quotient group.
+       Addition of congruence classes of integers modulo n is an example of the quotient
+construction. Another familiar example is addition of angles. Every real number represents
+an angle, and two real numbers represent the same angle if they differ by an integer multiple
+of 21T. The group N of integer multiples of 21T is a subgroup of the additive group lR.+ of real
+numbers, and angles correspond naturally to (additive) cosets () + N of N in G. The group
+of angles is the quotient group whose elements are the cosets.
+       The set of cosets of a normal subgroup N of a group G is often denoted by G / N.
+(2.12.1)                         G / N is the set of cosets of N in G.
+      When we regard a coset C as an element of the set of cosets, the bracket notation [C]
+may be used. If C = aN, we may also use the bar notation to denote the element [C] by a,
+and then we would denote the set of cosets by G:
+                                             G = G /N .
+
+Theorem 2.12.2 Let N be a normal subgroup of a_group G, and let G denote the set of
+cosets of N in G. There is a law of composition on G that makes this set into a group, such
+that the map 1T: G ^ G defined by 1T(a) = a is a surjective homomorphism whose kernel
+is N.
+
+• The map is often referred to as the canonical map from G to G. The word “canonical”
+indicates that this is the only map that we might reasonably be talking about.
+       The next corollary is very simple, but it is important enough to single out:
+
+Corollary 2.12.3 Let N be a normal subgroup of a group G, and let G denote the set
+of cosets of N in G. Let       :G      G be the canonical homomorphism. Let a i, ... , a* be
+elements of G such that the product ai ■ ■ - ak is in N. Then ai ■ ■ - ak = 1.
+
+Proof Let p = ai • . ■ a*. Then p is in N, so 1T (p) = p = 1. Since is a homomorphism,
+a\- -ak = p.                                                                         □
+                                                            Section 2.12      Quotient Groups    67
+
+Proofof Theorem 2.12.2.     There are several things to be done. We must
+
+      • define a law of composition on G,
+      • prove that the law makes G into a group,
+      • prove that JT is a surjective homomorphism, and
+      • prove that the kernel of JT is N.
+
+We use the following notation: If A and B are subsets of a group G, then A B denotes the
+set of products ab:
+
+(2.12.4)             A B = {x e G | x = ab for some a       e A and b   e   B}.
+
+We will call this a product set, though in some other contexts the phrase “product set” refers
+to the set A x B of pairs of elements.
+
+Lemma 2.12.5 Let N be a normal subgroup of a group G, and let a N and b N be cosets of
+N. The product set (aN )(bN ) is also a coset. It is equal to the coset abN.
+
+     We note that the set (aN )(bN ) consists of all elements of G that can be written in the
+form anbn', with n and n' in N.
+
+Proof. Since N is a subgroup, N N = N. Since N is normal, left and right cosets are equal:
+N b = bN (2.8.17). The lemma is proved by the following formal manipulation:
+
+                    (aN )(bN ) = a (N b )N = a (b N )N = a b N N = abN.                          □
+
+      This lemma allows us to define multiplication on the set G = G / N. Using the bracket
+notation (2.7.8), the definition is this: If C\ and C2 are cosets, then [Ci][C2] = [C1C 2],
+Where Ci C2 is the product set. The lemma shows that this product set is another coset. To
+compute the product [Ci][C2], take any elements a in Ci and b in C2. Then Ci = aN ,
+C 2 = bN , and Ci C2 is the coset ab N that contains ab. So we have the very natural formula
+
+(2.12.6)                      [aN][bN] = [abN]        or   lib = ab.
+
+Then by definition of the map JT in (2.12.2),
+
+(2.12.7)                        JT(a)JT(b) = lib = ab = JT(ab).
+
+The fact that JT is a homomorphism will follow from (2.12.7), once we show that G is a group.
+Since the canonical map JT is surjective (2.7.8), the next lemma proves this.
+
+Lemma 2.12.8 Let G be a group, and let Y be a set with a law of composition, both
+laws written with multiplicative notation. Let cp : G -> Y be a surjective map with the
+homomorphism property, that cp(ab) = cp(a)cp(b) for all a and b in G. Then Y is a group
+and cp is a homomorphism.
+68   Chapter 2       Groups
+
+Proof The group axioms that are true in G are carried over to Y by the surjective map q;.
+Here is the proof of the associative law: Let yi, y 2, Y3 be elements of Y. Since q; is surjective,
+Yi = q;(xi) for some Xi in G. Then
+
+           (yiY2) Y3 = (q;(Xi)q;(*2))q;(X3)=q;(X!X2)q;(X3)=q;((XiX2)X3)
+                    = q;(Xi (X2X3» ) = q;(Xi)q;(X2X3)=q;(Xi)(q;(X2)q;(X3)) = yi (Y2Y3).
+
+The equality marked with an asterisk is the associative law in G. The other equalities follow
+from the homomorphism property of q;. The verifications of the other group axioms are
+similar.                                                                                      □
+
+      The only thing remaining to be verified is that the kernel of the homomorphism n is
+the subgroup N. Well, n (a ) = n (l) if and only if     = 1, or [aN] = [IN], and this is true if
+and only if a is an element of N.                                                              □
+
+
+
+
+(2.12.9)                 A Schematic Diagram of Coset Multiplication.
+
+Note: Our assumption that N be a normal subgroup of G is crucial to Lemma 2.12.5. If H
+is not normal, there will be left cosets Ci and C 2 of H in G such that the product set C iC 2
+does not lie in a single left coset. Going back once more to the subgroup H = <y> of S3,
+the product set (lH )(x H ) contains four elements: {I, y}{x, xy} = {x, xy, x2y, x2}. It is not
+a coset. The subgroup H is not normal.                                                          □
+     The next theorem relates the quotient group construction to a general group homo­
+morphism, and it provides a fundamental method of identifying quotient groups.
+
+Theorem 2.12.10 First Isomorphism Theorem. Let_q; : G         G' be a surjective group
+homomorphism with kernel N. The quotient group G = G / N is isomorphic to the image
+G'. To be precise, let n : G -> G be the canonical map. There is a unique isomorphism
+( j: G -*■ G' such that q; = (j 0 n.
+
+
+
+
+                                                 G
+                                                                                          Exercises     69
+
+Proof. The elements of G are the cosets of N, and they are also the fibres of the map cp
+(2.7.15). The m ap qi referred to in the theorem is the one that sends a nonempty fibre to
+its image: qi(x) = cp(x). For any surjective map of sets cp: G -+ G', one can form the set
+G of fibres, and then one obtains a diagram as above, in which (j is the bijective map that
+sends a fibre to its image. When cp is a group homomorphism, qi is an isomorphism because
+qi(ab) = cp(ab) = cp(a)cp(b) = qi(a)qi(b).                                                  □
+
+Corollary 2.12.11 Let cp: G -+ G' be a group homomorphism with kernel N and image H'.
+The quotient group G = G /N is isomorphic to the image H .                                              □
+
+      Two quick examples: The image of the absolute value map Cx -+ Kx is the group
+of positive real numbers, and its kernel is the unit circle V. The theorem asserts that the
+quotient group Cx/ U is isomorphic to the multiplicative group of positive real numbers.
+The determinant is a surjective homomorphism G L n (R) -+ Mx, whose kernel is the special
+linear group SLn (X). So the quotient GLn(M )/ SLn(K) is isomorphic to Mx.
+      There are also theorems called the Second and the Third Isomorphism Theorems,
+though they are less important.
+
+                                                              jfelif olfo feijt liter derfcljtebene :ntten lion £c
+                                                                         llIelclje pclj nlcijt llIoijl ijel'3eOlen (o
+                                                        un6 6n0et entfIeften 6fe 6etfrljte6ene 3ljel(e 6et ^oH
+                                               tieten etne jegflclje mil einer 6tfOntiem art lion ^tdpen lielclj
+                                                                                     —Leonhard Euler
+
+
+                                            EXERCISES
+
+Section 1 Laws of Composition
+   1.1. Let S be a set. Prove that the law ofcomposition defined by ab = a for all a and b in Sis
+        associative. For which sets does this law have an identity?
+   1.2. Prove the properties of inverses that are listed near the end of the section.
+   1.3. Let N denote the set {1, 2, 3, ... , } of natural numbers, and let s:N -+ N be the shift map,
+        defined by s(n) = n + 1. Prove that s has no right inverse, but that it has infinitely many
+        left inverses.
+
+Section 2 Groups and Subgroups
+   2.1. Make a multiplication table for the symmetric group S3.
+   2.2. Let S be a se t with an associative law of composition and with an identity element. Prove
+        that the subset consisting of the invertible elements in S is a group.
+  2.3. Let x, y, z, and w be elements of a group G.
+       (a) Solve for y, given that xyz 1 w = 1.
+       (b) Suppose that xyz = 1. Does it follow that yzx = 1? Does it follow that yxz = 1?
+70     Chapter 2      Groups
+
+     2.4. In which of the following cases is H a subgroup of G ?
+         (a) G = GL„(C) and H = GL„(R).
+         (b) G = KX and H = {I, -1}.
+         (c) G = Z+ and H is the set of positive integers.
+         (d) G = jRx and H is the set of positive reals.
+          (e) G = G L2 (JR) and H is the set of matrices               with a*"O.
+                                                                    ], wi
+
+     2.5. In the definition of a subgroup, the identity element in H is required to be the identity
+          of G. One might require only that H have an identity element, not that it need be the
+          same as the identity in G. Show that if H has an identity at all, then it is the identity in
+          G. Show that the analogous statement is true for inverses.
+     2.6. Let G be a group. Define an opposite group G° with law of composition a * b as follows:
+          The underlying set is the same as G, but the law of composition is a * b = ba. Prove that
+          G° is a group.
+
+Section 3 Subgroups of the Additive Group of Integers
+     3.1. Let a = 123 and b = 321. Compute d = gcd(a, b), and express d as an integer
+          combination ra + bs.
+     3.2. Prove that if a and b are positive integers whose sum is a prime p, their greatest common
+          divisor is 1.
+     3.3. (a) Define the greatest common divisor of a set fai, . . . , a„} of n integers. Prove that it
+               exists, and that it is an integer combination of ai, . . . , an.
+          (b) Prove that if the greatest common divisor of {aj, . . . , a„] is d, then the greatest
+               common divisor of (add, . . . , an/d) is 1.            .
+
+Section 4 Cyclic Groups
+     4.1. Let a and b be elements of a group G. Assume that a has order 7 and that a 3b = ba3.
+          Prove that a b = ba.
+     4.2. An nth root of unity is a complex number z such that zn = 1.
+          (a) Prove that the nth roots of unity form a cyclic subgroup of Cx of order n.
+          (b) Determine the product of all the nth roots of unity.
+
+     4.3. Let a and b be elements of a group G. Prove that ab and ba have the same order.
+     4.4. Describe all groups G that contain no proper subgroup.
+     4.5. Prove that every subgroup of a cyclic group is cyclic. Do this by working with exponents,
+          and use the description of the subgroups of Z+.
+     4.6. (a) Let G be a cyclic group of order 6. How many of its elements generate G? Answer
+              the same question for cyclic groups of orders 5 and 8.
+         (b) Describe the number of elements that generate a cyclic group of arbitrary order n.
+     4.7. Let x and y be elements ofa group G. Assume that each of the elements x, y, and xy has
+          order 2. Prove that the set H = {I, x, y, xy} is a subgroup of G, and that it has order 4.
+                                                                                     Exercises    71
+
+   4.8. (a) Prove that the elementary matrices of the first and third types (1.2.4) generate
+            G L n ClR).
+        (b) Prove that the elementary matrices of the first type generate SLn (K). Do the 2 X 2
+            case first.
+   4.9. How many elements of order 2 does t he s ymmetric group S4 contain?
+ 4.10. Show by example that t he product of elements of finite order i n a group need not have
+       finite order. What if t he group i s abelian?
+  4.11. (a) Adapt the method of row reduction to prove that the transpositions generate the
+            symmetric group Sn.
+        (b) Prove t hat, for n 2: 3, the three-cycles generate the alternating group A n.
+
+Section 5 Homomorphisms
+   5.1. Let q;:G -+ G' be a surjective homomorphism. Prove t hat i f G is cyclic, t hen G' is cyclic,
+        and if G is abelian, t hen G' is abelian.
+   5.2. Prove that the intersection K n H of subgroups of a group G is a subgroup of H, and
+        that i f K is a normal s ubgroup of G, then K n H is a normal s ubgroup of H.
+                                                                                   a b
+   5.3. Let U denote t he group of invertible upper t riangular 2 X 2 matrices A          , and
+                                                                                   0 b
+        let q; : U -+ Kx be the map that sends A -~-+ a2. Prove that q; is a homomorphism, and
+        determine i ts kernel and image.
+   5.4. Let f :K+ -+ C* be t he map f(x) = eix. Prove t hat / is a homomorphism, and determine
+        its kernel and i mage.
+                                                                                   ra    b
+   5.5. Prove that the n X n matrices that have the block form M =                  ^   ^        with
+       A in G Lr(lR) and D in G L „-r(lR), form a subgroup H of G L n (K), and that the
+       map H -+ G Lr(lR) that s ends M A is a homomorphism. What i s i ts kernel?
+   5.6. Determine t he c enter of G Ln (lR).
+        Hint: You are asked to determine the invertible matrices A that commute with every
+        invertible matrix B. Do not test with a general matrix B. Test with elementary matrices.
+
+Section 6   Isomorphisms
+                                                                1 x
+   6.1. Let G' be the group of real matrices of the form             . Is the map lR+ -+ G' that
+                                                                   1
+        sends x to t his matrix an isomorphism?
+   6.2. Describe all homomorphisms q; : Z+ -+ Z+. Determine which are i njective, which are
+        surjective, and which a re i somorphisms.
+   6.3. Show t hat t he functions f = 1/x, g = (x — 1) /x generate a group of functions, t he law of
+        composition being c omposition of functions, t hat i s isomorphic to t he s ymmetric group S3.
+   6.4. Prove that in a group, the products ab and ba are conjugate elements.
+                                                       '3     '         ' 1 r
+   6.5. Decide whether or not t he t wo matrices A =            and B =       are conjugate
+                                                       _     2^          _2 4
+        elements of t he general l inear group G L 2OR).
+72     Chapter 2      Groups
+
+                            ■ 1 1 ■ '1       '
+     6.6. Are the matrices                      conjugate elements of the group G L 2 (lR)? Are they
+                            _ 1 _5 1 1 .
+          conjugate elements of SL2(lR)?
+     6.7. Let H be a subgroup of G, and let g be a fixed element of G. The conjugate subgroup
+          gHg_1 is defined to be the set of all conjugates ghg-1, with h in H. Prove that gHg-1 is
+          a subgroup of G.
+     6.8. Prove that the map A     (At)— is an automorphism of G         (lR).
+     6.9. Prove that a group G and its opposite group G° (Exercise 2.6) are isomorphic.
+ 6.10. Find all automorphisms of
+       (a) a cyclic group of order 10, (b) the symmetric group S3.
+ 6.11. Let a be an element of a group G. Prove that if the set {l, a} is a normal subgroup of G,
+       then a is in the center of G.
+
+Section 7 Equivalence Relations and Partitions
+     7.1. Let G be a group. Prove that the relation a '" b if b = gag-1 for some g in G is an
+          equivalence relation on G.
+     7.2. An equivalence relation on Sis determined by the subset R ofthe set S X S consisting of
+          those pairs (a, b) such that a  b. Write the axioms for an equivalence relation in terms
+          of the subset R.
+     7.3. With the notation of Exercise 7.2, is the intersection R n R' of two equivalence relations
+          R and R' an equivalence relation? Is the union?
+     7.4. A relation R on the set of real numbers can be thought of as a subset of the (x, y)-plane.
+          With the notation of Exercise 7.2, explain the geometric meaning of the reflexive and
+          symmetric properties.
+     7.5. With the notation of Exercise 7.2, each of the following subsets R of the (x, y)-plane
+          defines a relation on the set K of real numbers. Determine which of the axioms (2.7.3)
+          are satisfied: (a) the set {(s, s) |s e K}, (b) the empty set, (c) the locus {xy + 1 = OJ,
+          (d) the locus {x2y — xy2 — x + y = OJ.
+     7.6. How many different equivalence relations can be defined on a set of five elements?
+
+Section 8 Cosets
+     8.1. Let H be the cyclic subgroup of the alternating group A4 generated by the permutation
+          (123). Exhibit the left and the right cosets of H explicitly.
+     8.2. In the additive group Mm of vectors, let W be the set of solutions of a system of homo­
+          geneous linear equations A X = O. Show that the set of solutions of an inhomogeneous
+          system AX = B is either empty, or else it is an (additive) coset of W.
+     8.3. Does every group whose order is a power of a prime p contain an element of order p ?
+     8.4. Does a group of order 35 contain an element of order 5? of order 7?
+     8.5. A finite group contains an element x of order 10 and also an element y of order 6. What
+          can be said about the order of G?
+     8.6. Let cp: G -> G' be a group homomorphism. Suppose that |G| = 18, |G'| = 15, and that
+          cp is not the trivial homomorphism. What is the order of the kernel?
+                                                                                     Exercises      73
+
+   8.7. A group G of order 22 contains elements x and y, where x=j:. 1 and y is not a power of x.
+        Prove that the subgroup generated by these elements is the whole group G.
+   8.8. Let G be a group of order 25. Prove that G has at least one subgroup of order 5, and that
+        if it contains only one subgroup of order 5, then it is a cyclic group.
+  8.9. Let G be a finite group. Under what circumstances is the map ({l: G -> G defined by
+       ({l(x) = x2 an automorphism of G?
+ 8.10. Prove that every subgroup ofindex 2 is a normal subgroup, and show by example that a
+       subgroup of index 3 need not be normal.
+ 8.11. Let G and H be the following subgroups of G L 2 (1R):
+
+                                                               x 0
+                                  G =
+                                                               0 1
+
+       with x and y real and x > O. An element of G can be represented by a point in the right
+       half plane. Make sketches showing the partitions of the half plane into left cosets and into
+       right cosets of H.
+ 8.U. Let S be a subset of a group G that contains the identity element 1, and such that the left
+       cosets aS, with a in G, partition G. Prove that S is a subgroup of G.
+ 8.13. Let S be a set with a law of composition: A partition TIi U TI2 U ••• of S is compatible
+       with the law of composition if for all i and j, the product set
+
+
+
+       is contained in a single subset TIk of the partition.
+       (a) The set Z of integers can be partitioned into the three sets [Pos] , [Neg], [{OJ]. Discuss
+           the extent to which the laws of composition + and X are compatible with this
+           partition.
+       (b) Describe all partitions of the integers that are compatible with the operation +.
+
+Section 9 Modular Arithmetic
+  9.1. For which integers n does 2 have a multiplicative inverse in Z/Zn?
+  9.2. What are the possible values of a2 modulo 4? modulo 8?
+  9.3. Prove that every integer a is congruent to the sum of its decimal digits modulo 9.
+  9.4. Solve the congruence 2x == 5 modulo 9 and modulo 6.
+  9.5. Determine the integers n for which the pair of congruences 2x — y"" 1 and 4x +
+       3y == 2 modulo n has a solution.
+  9.6. Prove the Chinese Remainder Theorem: Let a, b, u, v be integers, and assume that the
+       greatest common divisor of a and b is 1. Then there is an integer x such that x ==u modulo
+       a and X == v modulo b.
+       Hint: Do the case u = 0 and v = 1 first.
+  9.7. Determine the order of each of the matrices A                  and B              when the
+       matrix entries are interpreted modulo 3.
+74   Chapter 2     Groups
+
+Section 10 The Correspondence Theorem
+  10.1. Describe how to tell from the cycle decomposition whether a permutation is odd or even.
+  10.2. Let H and K be subgroups of a group G.
+       (a) Prove that the intersection xH n y K of two cosets of H and K is either empty or
+           else is a coset of the subgroup H 0 K.
+       (b) Prove that if H and K have finite index in G then H n K also has finite index in G.
+ 10.3. Let G and G' be cyclic groups of orders 12 and 6, generated by elements x and y,
+       respectively, and let cp : G -+ G ' be the map defined by cp(X ) = y l. Exhibit the
+       correspondence referred to in the Correspondence Theorem explicitly.
+ 10.4. With the notation of the Correspondence Theorem, let H and H ' be corresponding
+       subgroups. Prove that [G : H] = [G ': H'].
+ 10.5. With reference to the homomorphism S 4 —> S3 described in Example 2.5.13, determine
+       the six subgroups of S4 that contain K.
+
+Section 11 Product Groups
+ 11.1. Let x be an element of order r of a group G, and let y be an element of G' of order s.
+       What is the order of (x, y) in the product group G x G'?
+ 11.2. What does Proposition 2.11.4 tell us when, with the usual notation for the symmetric
+       group S3, K and H are the subgroups <y> and <x>?
+ 11.3. Prove that the product of two infinite cyclic groups is not infinite cyclic.
+ 11.4. In each of the following cases, determine whether or not G is isomorphic to the product
+       group H x K .
+       (a) G = Kx, H = {± I}, K = {positive real numbers}.
+       (b) G = {invertible upper triangular 2 X 2 matrices), H = {invertible diagonal matrices},
+           K = {upper triangular matrices with diagonal entries I}.
+       (c) G = Cx, H = {unit circle}, K = {positive real numbers}.
+ 11.5. Let G 1 and G 2 be groups, and let Zj be the center of G,. Prove that the center of the
+       product group Gi X G2 is Zi X Z2.
+ 11.6. Let G be a group that contains normal subgroups of orders 3 and 5, respectively. Prove
+       that G contains an element of order 15.
+ 11.7. Let H be a subgroup of a group G, let cp: G -+ H be a homomorphism whose restriction
+       to H is the identity map, and let N be its kernel. What can one say about the product
+       map H x N -+ G?
+ 11.8. Let G, G', and H be groups. Establish a bijective correspondence between homomor­
+       phisms : H -+ G X G ' from H to the product group and pairs (cp, cp') consisting of a
+       homomorphism cp: H -+ G and a homomorphism cp' : H -+ G'.
+ 11.9. Let H and K be subgroups of a group G. Prove that the product set HK is a subgroup
+       of G if and only if H K = KH.
+
+Section U   Quotient Groups
+ U .l. Show that if a subgroup H of a group G is not normal, there are left cosets aH and bH
+       whose product is not a coset.
+                                                                                       Exercises   75
+
+  12.2. In the general linear group G L 3 (lR), consider the subsets
+                                      "1 * *           "1 0 *
+                               H =     0 1 * , and K = 0 1 0
+                                       0 0 1_           0 0 1
+        where * represents an arbitrary real number. Show that H is a subgroup of G L 3 , that K
+        is a normal subgroup of H, and identify the quotient group H / K. Determine the center
+        of H.
+  12.3. Let P be a partition of a group G with the property that for any pair of elements A, B of
+        the partition, the product set AB is contained entirely within another element C of the
+        partition. Let N be the element of P that contains 1. Prove that N is a normal subgroup
+        of G and that P is the set of its cosets.
+  12.4. Let H = {±1, ± i} be the subgroup of G = Cx of fourth roots of unity. Describe the
+        cosets of H in G explicitly. Is G / H isomorphic to G?
+                                                                    b
+  12.5. Let G be the group of upper triangular real matrices              with a and d different
+                                                                    d
+       from zero. For each of the following subsets, determine whether or not S is a subgroup,
+       and whether or not S is a normal subgroup. If S is a normal subgroup, identify the
+       quotient group G /S.
+          (i) S is the subset defined by b = 0.
+         (ii) S is the subset defined by d = 1.
+        (iii) S is the subset defined by a = d.
+
+Miscellaneous Problems
+ M.1. Describe the column vectors (a, c)f that occur as the first column of an integer matrix A
+       whose inverse is also an integer matrix.
+  M.2. (a) Prove that every group of even order contains an element of order 2.
+       (b) Prove that every group of order 21 contains an element of order 3.
+  M.3. Classify groups of order 6 by analyzing the following three cases:
+          (i) G contains an element of order 6.
+         (ii) G contains an element of order 3 but none of order 6.
+        (iii) All elements of G have order 1 or 2.
+
+  M.4. A semigroup S is a set with an associative law of composition and with an identity.
+       Elements are not required to have inverses, and the Cancellation Law need not hold. A
+       semigroup S is said to be generated by an element s if the set {1, s, s2, ... } of nonnegative
+       powers of s is equal to S. Classify semigroups that are generated by one element.
+  M.S. Let S be a finite semigroup (see Exercise MA) in which the Cancellation Law 2.2.3 holds.
+       Prove that S is a group.
+ *M.6. Let a = (a^, . . . , ak) and b = (bi, ... , bk) be points in k-dimensional space ]Rk. A
+       path from a to b is a continuous function on the unit interval [O, 1] with values in Rk, a
+       function X : [ 0, 1] --+ Rk, sending t X ( t ) = ( x (t), . . . , Xk(t)), such that X(O) = a and
+       X(1) = b. if S is a subset of       and if a and b are in S, define a ~ b if a and b can be
+       joined by a path lying entirely in S.
+76   Chapter 2       Groups
+
+        (a) Show that ~ is an equivalence relation on S. Be careful to check that any paths you
+            construct stay within the set S.
+        (b) A subset S is path connected if a ~ b for any two points a and b in S. Show that every
+            subset S is partitioned into path-connected subsets with the property that two points
+            in different subsets cannot be connected by a path in S.
+        (c) Which of the following loci in JR2 are path-connected: {x2 + y2 = 1}, {xy = OJ,
+            {xy = 1 }?
+
+ *M.7. The set of n x n matrices can be identified with the space JRnxn. Let G be a subgroup of
+       G L n (JR). With the notation of Exercise M.6, prove:
+        (a) If A, B, C, D are in G, and if there are paths in G from A to B     and from     C to D, then
+            there is a path in G from AC to BD.
+        (b) The set of matrices that can be joined to the identity I forms      a normal subgroup of
+            G. (It is called the connected component of G .)
+
+ *M.8. (a) ' The group SLn (JR) is generated by elementary matrices of the first type (see
+            Exercise 4.8). Use this fact to prove that SLn (JR) is path-connected.
+       (b) Show that G L n (JR) is a union of two path-connected subsets, and describe them.
+  M.9. (double cosets) Let H and K be subgroups of a group G, and let g be an element of G.
+       The set H gK — {x E G | x = h g k for some h E H, ke K} is called a double coset. Do
+       the double cosets partition G?
+ M.10. Let H be a subgroup of a group G. Show that the double cosets (see Exercise M.9)
+
+
+
+        are the left cosets g H if and only if H is normal.
+*M.l1. Most invertible matrices can be written as a product A = LUof a lower triangular matrix
+       L and an upper triangular matrix U, where in addition all diagonal entries of U are 1.
+        (a) Explain how to compute L and U when the matrix A is given.
+        (b) Prove uniqueness, that there is at most one way to write A as such a product.
+        (c) Show that every invertible matrix can be written as a product LPU, where L, U are
+            as above and P is a permutation matrix.
+        (d) Describe the double cosets LgU (see Exercise M.9).
+
+ M.12. (postage stamp problem) Let a and b be positive, relatively prime integers.
+        (a) Prove that every sufficiently large positive integer n can be obtained as ra + sb,
+            where r and s are positive integers.
+        (b) Determine the largest integer that is not of this form.
+ M.13. (a game) The starting position is the point (1,1), and a permissible “move” replaces a
+       point (a, b) by one of the points (a + b, b) or (a, a + b). So the position after the first
+       move will be either (2, 1) or (1, 2). Determine the points that can be reached.
+ M.14. (generating S L i(Z )) Prove that the two matrices
+
+                                        zr-T1 ll        f '- T1 °!
+                                        E~    0 1     ’ E =     1 1
+                                                                                   Exercises   77
+
+      generate the group SL2 (7.) of all integer matrices with determinant 1. Remember that
+      the subgroup they generate consists of all elements that can be expressed as products
+      using the four elements E, E', E ”1, E '-1.
+      Hint: Do not try to write a matrix directly as a product of the generators. Use row
+      reduction.
+M.1S. (the semigroup generated by elementary matrices) Determine the semigroup S (see
+     Exercise M.4) of matrices A that can be written as a product, of arbitrary length, each of
+      whose terms is one of the two matrices
+                                      '1 r            '1 0 ‘
+                                                 or
+                                       0 i_             1 l_
+
+      Show that every element of S can be expressed as such a product in exactly one way. '
+M.16. 1(the homophonic group: a mathematical diversion) By definition, English words have
+      the same pronunciation if their phonetic spellings in the dictionary are the same. The
+      homophonic group is generated by the letters of the alphabet, subject to the following
+      relations: English words with the same pronunciation represent equal elements of the
+      group. Thus be = bee, and since     is a group, we can cancel be to conclude that e = 1.
+      Try to determine the group ft.
+
+
+
+
+ 1 I learned this problem from a paper by Mestre, Schoof, Washington and Zagier.
+

@@ -1,0 +1,32 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["458d34904dbb5fe6.olean"],
+  "i": "9fcff5d3793bd791.ilean",
+  "c": "a5772d0d4cc2addf.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=/home/onean/research/tactic-formalization/.lake/packages/Cli/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/batteries/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/Qq/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/aesop/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/importGraph/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/plausible/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/mathlib/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/build/lib/lean /home/onean/.elan/toolchains/leanprover--lean4---v4.28.0/bin/lean /home/onean/research/tactic-formalization/TacticFormalization/Tactics.lean -o /home/onean/research/tactic-formalization/.lake/build/lib/lean/TacticFormalization/Tactics.olean -i /home/onean/research/tactic-formalization/.lake/build/lib/lean/TacticFormalization/Tactics.ilean -c /home/onean/research/tactic-formalization/.lake/build/ir/TacticFormalization/Tactics.c --setup /home/onean/research/tactic-formalization/.lake/build/ir/TacticFormalization/Tactics.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["TacticFormalization.Tactics:deps",
+   [["deps",
+     [["tacticFormalization/TacticFormalization:extraDep",
+       [["@tacticFormalization:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TacticFormalization.GeneratedTactics transitive imports (legacy)",
+         "12c1ba7185138d42"],
+        ["TacticFormalization.GeneratedTactics:importAllArts",
+         "a7105fa96f61bd78"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.28.0, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b",
+   "a96bc04a2e5e9630"],
+  ["/home/onean/research/tactic-formalization/TacticFormalization/Tactics.lean",
+   "f2bafbc81ad5b145"],
+  ["options", "00000000000006bb"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "f68570cd75da3b3f"}

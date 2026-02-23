@@ -1,0 +1,92 @@
+Most common proof tactics in group.pdf (filtered to tactics used >= 3 times)
+
+Detected proofs analyzed: 33
+
+- Kernel–image reduction via homomorphisms (used in 14 proofs)
+  Define/use a homomorphism and reduce the claim to statements about kernel, image, fibres, and injective/surjective properties.
+  Cases:
+  - Proposition 2.5.3 — Let <p:G -+ G ' be a group homomorphism. (PDF p.12)
+  - Proposition 2.5.8 — Let IP : G -+ G ' be a homomorphism of groups, and let a and b be (PDF p.13)
+  - Corollary 2.5.9 — A homomorphism IP: G -+ G' is injective if and only if its kernel K is the (PDF p.14)
+  - Proposition 2.5.11 — The kernel of a homomorphism is a normal subgroup. (PDF p.14)
+  - Lemma 2.6.2 — If q;: G -+ G' is an isomorphism, the inverse map q; - 1 : G' -+ G is also an (PDF p.15)
+  - Corollary 2.8.13 — Let cp:G -+ G ' be a homomorphism of finite groups. Then (PDF p.22)
+  - Proposition 2.8.18 (PDF p.23)
+  - Proposition 2.10.4 — Let       : G -+ 9 be a homomorphism with kernel K and let H be a (PDF p.26)
+  - Proof of Theorem 2.10.5 (Correspondence Theorem) (PDF p.27)
+  - Proposition 2.11.4 — Let H and K be subgroups of a group G, and let f : H X K -+ G be the (PDF p.29)
+  - Corollary 2.12.3 — Let N be a normal subgroup of a group G, and let G denote the set (PDF p.30)
+  - Proof of Theorem 2.12.2 (PDF p.31)
+  - Lemma 2.12.8 — Let G be a group, and let Y be a set with a law of composition, both (PDF p.32)
+  - Theorem 2.12.10 — First Isomorphism Theorem. Let_q; : G         G' be a surjective group (PDF p.33)
+
+- Inverse-cancellation algebra in groups (used in 9 proofs)
+  Solve/compare group equations by multiplying on the left/right by inverses to cancel factors (explicit use of cancellation/inverses).
+  Cases:
+  - Proposition 2.2.3 — Cancellation Law. Let a, b, c be elements of a group G whose law of (PDF p.5)
+  - Proposition 2.5.3 — Let <p:G -+ G ' be a group homomorphism. (PDF p.12)
+  - Proposition 2.5.8 — Let IP : G -+ G ' be a homomorphism of groups, and let a and b be (PDF p.13)
+  - Corollary 2.5.9 — A homomorphism IP: G -+ G' is injective if and only if its kernel K is the (PDF p.14)
+  - Proposition 2.5.11 — The kernel of a homomorphism is a normal subgroup. (PDF p.14)
+  - Proposition 2.8.17 — Let H be a subgroup of a group           G. The following conditions are (PDF p.23)
+  - Proposition 2.10.4 — Let       : G -+ 9 be a homomorphism with kernel K and let H be a (PDF p.26)
+  - Proof of Theorem 2.10.5 (Correspondence Theorem) (PDF p.27)
+  - Proposition 2.11.4 — Let H and K be subgroups of a group G, and let f : H X K -+ G be the (PDF p.29)
+
+- Normality and conjugation invariance (used in 9 proofs)
+  Prove a subgroup is normal (or use normality) by checking closure under conjugation: g a g^{-1} stays in the subgroup; use gHg^{-1} manipulations.
+  Cases:
+  - Proposition 2.5.11 — The kernel of a homomorphism is a normal subgroup. (PDF p.14)
+  - Proposition 2.8.17 — Let H be a subgroup of a group           G. The following conditions are (PDF p.23)
+  - Proposition 2.8.18 (PDF p.23)
+  - Proposition 2.10.4 — Let       : G -+ 9 be a homomorphism with kernel K and let H be a (PDF p.26)
+  - Proof of Theorem 2.10.5 (Correspondence Theorem) (PDF p.27)
+  - Proposition 2.11.4 — Let H and K be subgroups of a group G, and let f : H X K -+ G be the (PDF p.29)
+  - Proposition 2.11.5 — There are two isomorphism classes of groups of order 4, the class of the (PDF p.30)
+  - Proof of Theorem 2.12.2 (PDF p.31)
+  - Lemma 2.12.5 — Let N be a normal subgroup of a group G, and let a N and b N be cosets of (PDF p.31)
+
+- Cosets + counting / index arguments (used in 9 proofs)
+  Use coset partitions and counting/index formulas (Lagrange-style divisibility, multiplicativity of index, cosets all same size).
+  Cases:
+  - Corollary 2.8.3 — The left cosets of a subgroup H of a group G partition the group. (PDF p.21)
+  - Lemma 2.8.7 — All left cosets aH of a subgroup H of a group G have the same order. (PDF p.21)
+  - Corollary 2.8.13 — Let cp:G -+ G ' be a homomorphism of finite groups. Then (PDF p.22)
+  - Proposition 2.8.14 — Multiplicative Property of the Index. Let G           H     K be subgroups of (PDF p.22)
+  - Proposition 2.8.17 — Let H be a subgroup of a group           G. The following conditions are (PDF p.23)
+  - Proposition 2.11.4 — Let H and K be subgroups of a group G, and let f : H X K -+ G be the (PDF p.29)
+  - Proof of Theorem 2.12.2 (PDF p.31)
+  - Lemma 2.12.5 — Let N be a normal subgroup of a group G, and let a N and b N be cosets of (PDF p.31)
+  - Theorem 2.12.10 — First Isomorphism Theorem. Let_q; : G         G' be a surjective group (PDF p.33)
+
+- Equivalence classes / partitions (used in 6 proofs)
+  Introduce an equivalence relation and work with its equivalence classes and the induced partition (used for cosets and congruence mod n).
+  Cases:
+  - Proposition 2.7.4 — An equivalence relation on a set S determines a partition of S, and (PDF p.17)
+  - Lemma 2.7.6 — Given an equivalence relation on a set S, the subsets of S that are equivalence (PDF p.18)
+  - Corollary 2.8.3 — The left cosets of a subgroup H of a group G partition the group. (PDF p.21)
+  - Proposition 2.8.14 — Multiplicative Property of the Index. Let G           H     K be subgroups of (PDF p.22)
+  - Proposition 2.8.17 — Let H be a subgroup of a group           G. The following conditions are (PDF p.23)
+  - Lemma 2.9.6 — If d == a and b' == b modulo n, then d + b’ == a + b and             a'b'==ab (PDF p.25)
+
+- Subgroup verification (closure/identity/inverses) (used in 4 proofs)
+  Prove a set is a subgroup by verifying subgroup axioms (contains identity, closed under products, closed under inverses), often explicitly enumerated.
+  Cases:
+  - Theorem 2.3.3 — Let S be a subgroup of the additive group Z+. Either S is the trivial subgroup (PDF p.8)
+  - Proposition 2.4.2 — Let <x> be the cyclic subgroup of-a group G generated by an element x, (PDF p.10)
+  - Proposition 2.10.4 — Let       : G -+ 9 be a homomorphism with kernel K and let H be a (PDF p.26)
+  - Proposition 2.11.4 — Let H and K be subgroups of a group G, and let f : H X K -+ G be the (PDF p.29)
+
+- Bezout / gcd–lcm divisibility trick (used in 3 proofs)
+  Use gcd/lcm structure and Bezout-style linear combinations (d = ra + sb) to prove divisibility statements.
+  Cases:
+  - Proposition 2.3.5 — Let a and b be integers, not both zero, and let d be their greatest common (PDF p.8)
+  - Corollary 2.3.7 — Let p be a prime integer. If p divides a product ab of integers, then p (PDF p.9)
+  - Corollary 2.3.9 — Let d = gcd(a, b) and m = lcm(a, b) be the greatest common divisor and (PDF p.9)
+
+- Order divisibility via cyclic subgroups (Lagrange-style) (used in 3 proofs)
+  Use the cyclic subgroup generated by an element and a divisibility statement about orders (e.g. “order of a divides |G|”, prime-order implies cyclic).
+  Cases:
+  - Corollary 2.8.10 — The order of an element of a finite group divides the order of the group. (PDF p.22)
+  - Corollary 2.8.11 — Suppose that a group G has prime order p. Let a be any element of G (PDF p.22)
+  - Proposition 2.11.5 — There are two isomorphism classes of groups of order 4, the class of the (PDF p.30)

@@ -1,0 +1,42 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["5815112f90dba3ed.olean"],
+  "i": "bd20b45ea3583cbd.ilean",
+  "c": "85e1691dead7d19a.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=/home/onean/research/tactic-formalization/.lake/packages/Cli/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/batteries/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/Qq/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/aesop/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/importGraph/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/plausible/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/packages/mathlib/.lake/build/lib/lean:/home/onean/research/tactic-formalization/.lake/build/lib/lean /home/onean/.elan/toolchains/leanprover--lean4---v4.28.0/bin/lean /home/onean/research/tactic-formalization/TacticFormalization/TextbookExamples.lean -o /home/onean/research/tactic-formalization/.lake/build/lib/lean/TacticFormalization/TextbookExamples.olean -i /home/onean/research/tactic-formalization/.lake/build/lib/lean/TacticFormalization/TextbookExamples.ilean -c /home/onean/research/tactic-formalization/.lake/build/ir/TacticFormalization/TextbookExamples.c --setup /home/onean/research/tactic-formalization/.lake/build/ir/TacticFormalization/TextbookExamples.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "TacticFormalization/TextbookExamples.lean:59:44: try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`",
+   "level": "warning"},
+  {"message":
+   "TacticFormalization/TextbookExamples.lean:63:8: try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`",
+   "level": "warning"},
+  {"message":
+   "TacticFormalization/TextbookExamples.lean:74:10: try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`",
+   "level": "warning"},
+  {"message":
+   "TacticFormalization/TextbookExamples.lean:100:6: try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`",
+   "level": "warning"}],
+ "inputs":
+ [["TacticFormalization.TextbookExamples:deps",
+   [["deps",
+     [["tacticFormalization/TacticFormalization:extraDep",
+       [["@tacticFormalization:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TacticFormalization transitive imports (legacy)", "b526c61c587c639b"],
+        ["TacticFormalization:importAllArts", "24ebd21a25a0de66"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.28.0, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b",
+   "a96bc04a2e5e9630"],
+  ["/home/onean/research/tactic-formalization/TacticFormalization/TextbookExamples.lean",
+   "97f31f8534ade87a"],
+  ["options", "00000000000006bb"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "e4b89c54352ec2c7"}
