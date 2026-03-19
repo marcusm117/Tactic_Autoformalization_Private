@@ -62,12 +62,16 @@ def find_last_iteration_files(condition: str, tmp_dir: Path | None = None) -> di
 def check_compilation(file_path: Path, timeout: int = 300) -> bool:
     """Compile a Lean file and return whether it succeeded.
 
+    Also rejects proofs that use ``sorry`` or ``admit``, which compile
+    successfully but leave the proof incomplete.
+
     Args:
         file_path: Path to the Lean file.
         timeout: Compilation timeout in seconds.
 
     Returns:
-        True if the file compiles without errors, False otherwise.
+        True if the file compiles without errors and does not use sorry/admit,
+        False otherwise.
     """
     try:
         env = {**subprocess.os.environ, "LEAN_PATH": LEAN_PATH}
@@ -81,6 +85,11 @@ def check_compilation(file_path: Path, timeout: int = 300) -> bool:
             env=env,
         )
         if result.returncode == 0 and "error" not in result.stderr.lower():
+            # Reject proofs that rely on sorry/admit — the Lean compiler
+            # emits "declaration uses 'sorry'" warnings in stderr
+            stderr_lower = result.stderr.lower()
+            if "sorry" in stderr_lower or "admit" in stderr_lower:
+                return False
             return True
         return False
     except (subprocess.TimeoutExpired, Exception):

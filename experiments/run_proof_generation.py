@@ -210,6 +210,9 @@ def build_lean_file(problem: dict, proof: str, with_tactics: bool) -> str:
 def compile_lean_file(file_path: Path, timeout: int = 300) -> tuple[bool, str]:
     """Compile a Lean 4 file and return success status and error output.
 
+    Also rejects proofs that use ``sorry`` or ``admit``, which compile
+    successfully but leave the proof incomplete.
+
     Args:
         file_path: Path to the Lean file to compile.
         timeout: Timeout in seconds for the compilation.
@@ -233,6 +236,10 @@ def compile_lean_file(file_path: Path, timeout: int = 300) -> tuple[bool, str]:
             stderr = result.stderr.strip()
             if "error" in stderr.lower():
                 return False, stderr
+            # Reject proofs that rely on sorry/admit (compiles but is incomplete)
+            stderr_lower = stderr.lower()
+            if "sorry" in stderr_lower or "admit" in stderr_lower:
+                return False, f"Proof uses sorry/admit (incomplete proof)\n{stderr}"
             return True, ""
         error = result.stderr.strip() if result.stderr.strip() else result.stdout.strip()
         return False, error
@@ -499,10 +506,17 @@ def main():
         help="Maximum self-refinement iterations per problem (default: 5)",
     )
     parser.add_argument(
+        "--split",
+        type=str,
+        default="test",
+        choices=["train", "test"],
+        help="Data split to use: 'train' or 'test' (default: test)",
+    )
+    parser.add_argument(
         "--csv-path",
         type=str,
-        default=str(PROJECT_ROOT / "data" / "ProofNet-V_Artin_DummitFoote_test.csv"),
-        help="Path to the test CSV file",
+        default=None,
+        help="Path to the CSV file (overrides --split if provided)",
     )
     parser.add_argument(
         "--output-dir",
@@ -536,16 +550,35 @@ def main():
     )
     args = parser.parse_args()
 
-    # Setup directories with model, reasoning effort, iterations, and timestamp
+    # Resolve CSV path: --csv-path overrides --split
+    if args.csv_path is not None:
+        csv_path = args.csv_path
+    else:
+        csv_path = str(PROJECT_ROOT / "data" / f"ProofNet-V_Artin_DummitFoote_{args.split}.csv")
+
+    # Determine the split name for directory naming
+    if args.csv_path is not None:
+        # Infer split from the CSV filename, fall back to "custom"
+        csv_stem = Path(args.csv_path).stem
+        if "train" in csv_stem:
+            split_name = "train"
+        elif "test" in csv_stem:
+            split_name = "test"
+        else:
+            split_name = "custom"
+    else:
+        split_name = args.split
+
+    # Setup directories with model, reasoning effort, split, iterations, and timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_name = f"{args.model}_{args.reasoning_effort}_{args.max_iterations}iters_{timestamp}"
+    run_name = f"{args.model}_{args.reasoning_effort}_{split_name}_{args.max_iterations}iters_{timestamp}"
     output_dir = Path(args.output_dir) / run_name
     output_dir.mkdir(parents=True, exist_ok=True)
     tmp_run_dir = TMP_DIR / run_name
     tmp_run_dir.mkdir(parents=True, exist_ok=True)
 
     # Load data
-    problems = load_problems(args.csv_path)
+    problems = load_problems(csv_path)
     tactics_content = load_tactics_context()
 
     all_stats = {}
