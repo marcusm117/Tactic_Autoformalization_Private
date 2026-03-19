@@ -1,0 +1,362 @@
+import Mathlib
+
+open Function Fintype Subgroup Ideal Polynomial Submodule Zsqrtd
+open scoped BigOperators
+
+/-
+  ProofStrategyTactics_parameterized.lean
+
+  Custom Lean 4 tactics encoding the top 10 proof strategies from
+  ProofNet-V analysis. `sylow_counting`, `lagrange`, and `counterexample`
+  accept optional user parameters and use `elab` for proof-state awareness.
+  The rest use `macro`.
+
+  Import this file to use all tactics in other proofs:
+
+    import ProofStrategyTactics_parameterized
+
+  Authors: marcusm117
+  License: Apache 2.0
+-/
+
+
+open Lean Elab Tactic Meta
+
+
+/-! ## algebraic_chain
+
+Tries to close an algebraic equality/identity goal by attempting
+`ring`, `group`, `field_simp; ring`, and `simp` with common algebraic lemmas
+in sequence. Covers the "direct algebraic computation / chain of equalities"
+proof pattern. -/
+
+macro "algebraic_chain" : tactic =>
+  `(tactic|
+    first
+    | ring
+    | group
+    | (field_simp; ring)
+    | (ring_nf; simp [mul_comm, mul_assoc, add_comm, add_assoc,
+                      mul_inv_cancel, inv_mul_cancel])
+    | simp [mul_comm, mul_assoc, mul_left_comm,
+            add_comm, add_assoc, add_left_comm])
+
+
+/-! ## sylow_counting
+
+Parameterized: `sylow_counting` scans all primes in context.
+`sylow_counting p` targets a specific prime p.
+
+Introduces Sylow counting constraints:
+  (1) `card (Sylow p G) ≡ 1 [MOD p]`
+  (2) `card (Sylow p G) ∣ card G`
+Then attempts `omega`, `norm_num`, and `decide` to resolve the arithmetic. -/
+
+/-- Helper: introduce Sylow constraints for a given prime expression and try to resolve. -/
+private def sylowCountingForPrime (p : Expr) : TacticM Unit := do
+  try
+    let modStx ← `(tactic|
+      have := @Sylow.card_sylow_modEq_one _ _ $(← Term.exprToSyntax p) _ _ _)
+    evalTactic modStx
+  catch _ => pure ()
+  try
+    let dvdStx ← `(tactic|
+      have := @card_sylow_dvd_index _ _ $(← Term.exprToSyntax p) _ _)
+    evalTactic dvdStx
+  catch _ => pure ()
+
+/-- Helper: try to resolve arithmetic after Sylow constraints are introduced. -/
+private def sylowCountingResolve : TacticM Unit := do
+  try evalTactic (← `(tactic| omega))
+  catch _ =>
+  try evalTactic (← `(tactic| (norm_num at *; omega)))
+  catch _ =>
+  try evalTactic (← `(tactic| decide))
+  catch _ =>
+    pure ()
+
+-- Syntax: `sylow_counting` or `sylow_counting p`
+syntax "sylow_counting" (ppSpace term)? : tactic
+
+elab_rules : tactic
+  | `(tactic| sylow_counting $[$pStx?]?) => do
+    match pStx? with
+    | some pStx =>
+      -- User provided a specific prime
+      let p ← Term.elabTerm pStx none
+      sylowCountingForPrime p
+      sylowCountingResolve
+    | none =>
+      -- No argument: scan context for all Fact (Nat.Prime p)
+      let ctx ← getLCtx
+      let mut found := false
+      for decl in ctx do
+        if decl.isAuxDecl then continue
+        let ty ← instantiateMVars decl.type
+        if ty.isAppOfArity ``Fact 1 then
+          let arg := ty.getArg! 0
+          if arg.isAppOfArity ``Nat.Prime 1 then
+            let p := arg.getArg! 0
+            sylowCountingForPrime p
+            found := true
+      -- Fallback if no primes found
+      if !found then
+        try evalTactic (← `(tactic| have := Sylow.card_sylow_modEq_one))
+        catch _ => pure ()
+        try evalTactic (← `(tactic| have := card_sylow_dvd_index))
+        catch _ => pure ()
+      sylowCountingResolve
+
+
+/-! ## show_normal
+
+Proves a subgroup is normal by unfolding the normality condition
+and attempting to close the conjugation-closure goal.
+Handles both single subgroups and intersections of normal subgroups. -/
+
+/-- Helper: the inner normality proof after `constructor`. -/
+private def showNormalCore : TacticM Unit := do
+  evalTactic (← `(tactic| constructor))
+  evalTactic (← `(tactic| intro g x hx))
+  -- Try various approaches to close the conjugation goal
+  try evalTactic (← `(tactic|
+    simp only [Subgroup.mem_inf] at hx ⊢ <;>
+    exact ⟨Subgroup.Normal.conj_mem ‹_› x hx.1 g,
+           Subgroup.Normal.conj_mem ‹_› x hx.2 g⟩))
+  catch _ =>
+  try evalTactic (← `(tactic| exact Subgroup.Normal.conj_mem ‹_› x hx g))
+  catch _ =>
+  try
+    evalTactic (← `(tactic| simp [mul_assoc, mul_inv_cancel, inv_mul_cancel] at *))
+    evalTactic (← `(tactic| assumption))
+  catch _ =>
+  try evalTactic (← `(tactic| group))
+  catch _ =>
+    pure ()
+
+elab "show_normal" : tactic => showNormalCore
+
+
+/-! ## lagrange
+
+Parameterized: `lagrange` scans all subgroups in context.
+`lagrange H` targets a specific subgroup H.
+`lagrange H K` targets subgroups H and K.
+
+Introduces Lagrange-type divisibility facts:
+  (1) `Subgroup.card_subgroup_dvd_card H`  — |H| ∣ |G|
+  (2) `Subgroup.index_mul_card H`          — |G| = [G:H] * |H|
+Also introduces `orderOf_dvd_card` for element-order divisibility.
+Then attempts `omega`/`norm_num` to resolve the arithmetic. -/
+
+/-- Helper: introduce Lagrange facts for a given subgroup expression. -/
+private def lagrangeForSubgroup (hExpr : Expr) : TacticM Unit := do
+  try
+    let dvdStx ← `(tactic|
+      have := Subgroup.card_subgroup_dvd_card $(← Term.exprToSyntax hExpr))
+    evalTactic dvdStx
+  catch _ => pure ()
+  try
+    let idxStx ← `(tactic|
+      have := Subgroup.index_mul_card $(← Term.exprToSyntax hExpr))
+    evalTactic idxStx
+  catch _ => pure ()
+
+/-- Helper: try to resolve arithmetic after Lagrange facts are introduced. -/
+private def lagrangeResolve : TacticM Unit := do
+  try evalTactic (← `(tactic| omega))
+  catch _ =>
+  try evalTactic (← `(tactic| (norm_num at *; omega)))
+  catch _ =>
+  try evalTactic (← `(tactic| (simp only [Nat.dvd_iff_mod_eq_zero] at *; omega)))
+  catch _ =>
+    pure ()
+
+-- Syntax: `lagrange` or `lagrange H` or `lagrange H K` (up to 4 subgroups)
+syntax "lagrange" (ppSpace term)* : tactic
+
+elab_rules : tactic
+  | `(tactic| lagrange $[$args]*) => do
+    if args.size > 0 then
+      -- User provided specific subgroups
+      for argStx in args do
+        let hExpr ← Term.elabTerm argStx none
+        lagrangeForSubgroup hExpr
+    else
+      -- No arguments: scan context for all Subgroup hypotheses
+      let ctx ← getLCtx
+      let mut found := false
+      for decl in ctx do
+        if decl.isAuxDecl then continue
+        let ty ← instantiateMVars decl.type
+        if ty.isAppOfArity ``Subgroup 2 then
+          lagrangeForSubgroup decl.toExpr
+          found := true
+      -- Fallback if no subgroups found
+      if !found then
+        try evalTactic (← `(tactic| have := Subgroup.card_subgroup_dvd_card ‹_›))
+        catch _ => pure ()
+        try evalTactic (← `(tactic| have := Subgroup.index_mul_card ‹_›))
+        catch _ => pure ()
+    -- Always introduce order-divides-card
+    try evalTactic (← `(tactic| have := orderOf_dvd_card))
+    catch _ => pure ()
+    lagrangeResolve
+
+
+/-! ## isomorphism_theorem
+
+Tries to close the goal by applying the First, Second, or Third
+Isomorphism Theorem (for groups or rings). Falls back to simplifying
+quotient expressions. -/
+
+macro "isomorphism_theorem" : tactic =>
+  `(tactic|
+    first
+    -- First Isomorphism Theorem (groups)
+    | exact QuotientGroup.quotientKerEquivRange ‹_›
+    -- First Isomorphism Theorem (rings)
+    | exact RingHom.quotientKerEquivOfSurjective ‹_› ‹_›
+    -- Second Isomorphism Theorem
+    | exact QuotientGroup.quotientInfEquivProdNormalQuotient ‹_› ‹_›
+    -- Third Isomorphism Theorem
+    | exact Subgroup.quotientQuotientEquivQuotient ‹_› ‹_› ‹_›
+    -- Fallback: simplify quotient expressions
+    | (simp only [QuotientGroup.eq', QuotientGroup.mk'_apply];
+       assumption))
+
+
+/-! ## elem_count
+
+Simplifies `Fintype.card` / `Finset.card` expressions using
+inclusion-exclusion and injection bounds, then tries to close the
+resulting arithmetic via `omega` or `linarith`. -/
+
+macro "elem_count" : tactic =>
+  `(tactic| (
+    try simp only [Fintype.card, Finset.card,
+                   Finset.card_union_add_card_inter,
+                   Finset.card_sdiff, Finset.card_filter]
+    try simp only [Nat.add_sub_cancel, Nat.sub_self]
+    first
+    | omega
+    | linarith
+    | (norm_num at *; omega)
+    | skip))
+
+
+/-! ## double_inclusion
+
+Proves set/subgroup/ideal equality by double inclusion (A ⊆ B ∧ B ⊆ A),
+or iff by splitting into both directions. Detects the goal shape and
+applies the appropriate splitting strategy. -/
+
+macro "double_inclusion" : tactic =>
+  `(tactic|
+    first
+    -- Iff goal: split into two implications
+    | constructor
+    -- Set equality: extensionality then iff
+    | (ext; constructor)
+    -- Subgroup/Ideal equality via lattice antisymmetry
+    | apply le_antisymm
+    -- Set equality via subset antisymmetry
+    | apply Set.Subset.antisymm)
+
+
+/-! ## counterexample
+
+Parameterized: `counterexample` tries blind brute-force.
+`counterexample e₁, e₂, ...` provides explicit witnesses for existential
+goals (applies `use` with the witnesses, then verifies).
+
+Tries `decide`, `native_decide`, `norm_num` for verification. -/
+
+/-- Helper: blind brute-force verification without witnesses. -/
+private def counterexampleBlind : TacticM Unit := do
+  try evalTactic (← `(tactic| decide))
+  catch _ =>
+  try evalTactic (← `(tactic| native_decide))
+  catch _ =>
+  try evalTactic (← `(tactic| norm_num))
+  catch _ =>
+  try evalTactic (← `(tactic| (simp; decide)))
+  catch _ =>
+  try evalTactic (← `(tactic| (simp; native_decide)))
+  catch _ =>
+    pure ()
+
+-- Syntax: `counterexample` or `counterexample e₁, e₂, ...`
+syntax "counterexample" : tactic
+syntax "counterexample" term,+ : tactic
+
+elab "counterexample" : tactic => counterexampleBlind
+
+
+theorem exercise_3_5_6 {K V : Type*} [Field K] [AddCommGroup V]
+  [Module K V] {S : Set V} (hS : Set.Countable S)
+  (hS1 : span K S = ⊤) {ι : Type*} (R : ι → V)
+  (hR : LinearIndependent K R) : Countable ι := by
+  classical
+  have hchoice : ∀ x : V, x ∈ Submodule.span K S →
+      ∃ F : Finset S, x ∈ Submodule.span K (Subtype.val '' (↑F : Set S)) := by
+    intro x hx
+    induction hx using Submodule.span_induction with
+    | mem hx =>
+        refine ⟨{⟨x, hx⟩}, ?_⟩
+        exact Submodule.subset_span (by simp)
+    | zero =>
+        refine ⟨∅, ?_⟩
+        simp
+    | add x y hx hy ihx ihy =>
+        rcases ihx with ⟨F, hF⟩
+        rcases ihy with ⟨G, hG⟩
+        refine ⟨F ∪ G, ?_⟩
+        have hsubsetF : Subtype.val '' (↑F : Set S) ⊆ Subtype.val '' (↑(F ∪ G) : Set S) := by
+          exact Set.image_mono (by
+            intro s hs
+            exact Finset.mem_union.mpr (Or.inl hs))
+        have hsubsetG : Subtype.val '' (↑G : Set S) ⊆ Subtype.val '' (↑(F ∪ G) : Set S) := by
+          exact Set.image_mono (by
+            intro s hs
+            exact Finset.mem_union.mpr (Or.inr hs))
+        have hx' : x ∈ Submodule.span K (Subtype.val '' (↑(F ∪ G) : Set S)) := by
+          exact (Submodule.span_mono hsubsetF) hF
+        have hy' : y ∈ Submodule.span K (Subtype.val '' (↑(F ∪ G) : Set S)) := by
+          exact (Submodule.span_mono hsubsetG) hG
+        exact Submodule.add_mem _ hx' hy'
+    | smul a x hx ih =>
+        rcases ih with ⟨F, hF⟩
+        refine ⟨F, ?_⟩
+        exact Submodule.smul_mem _ a hF
+  have hRi : ∀ i : ι, R i ∈ Submodule.span K S := by
+    intro i
+    simpa [hS1] using (show R i ∈ (⊤ : Submodule K V) from by simp)
+  let F : ι → Finset S := fun i => Classical.choose (hchoice (R i) (hRi i))
+  have hF : ∀ i : ι, R i ∈ Submodule.span K (Subtype.val '' (↑(F i) : Set S)) := by
+    intro i
+    exact Classical.choose_spec (hchoice (R i) (hRi i))
+  let T : Type* := Σ F : Finset S, {i : ι // R i ∈ Submodule.span K (Subtype.val '' (↑F : Set S))}
+  haveI : ∀ F : Finset S, Finite {i : ι // R i ∈ Submodule.span K (Subtype.val '' (↑F : Set S))} := by
+    intro F
+    haveI : FiniteDimensional K (Submodule.span K (Subtype.val '' (↑F : Set S))) := by
+      simpa using (F.finite_toSet.image Subtype.val).finiteDimensional_span
+    have hlin :
+        LinearIndependent K
+          (fun i : {i : ι // R i ∈ Submodule.span K (Subtype.val '' (↑F : Set S))} =>
+            (⟨R i.1, i.2⟩ : Submodule.span K (Subtype.val '' (↑F : Set S)))) := by
+      simpa using
+        (hR.comp (fun i : {i : ι // R i ∈ Submodule.span K (Subtype.val '' (↑F : Set S))} => i.1)
+          (by
+            intro a b h
+            exact Subtype.ext h))
+    exact hlin.finite
+  haveI : Countable T := by
+    dsimp [T]
+    infer_instance
+  exact Countable.of_injective
+    (fun i : ι => (⟨F i, ⟨i, hF i⟩⟩ : T))
+    (by
+      intro a b h
+      have h' := congrArg (fun x : T => x.2.1) h
+      simpa using h')

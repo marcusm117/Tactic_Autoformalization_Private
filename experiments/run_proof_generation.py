@@ -103,8 +103,7 @@ def build_system_prompt(with_tactics: bool, tactics_content: str | None = None) 
         base += (
             "\n--- CUSTOM TACTICS AVAILABLE ---\n"
             "The following custom tactics are imported and available for use in your proof. "
-            "You are encouraged to use them when appropriate, but you may also use standard "
-            "Mathlib tactics.\n\n"
+            "You should try your best to use them when appropriate.\n\n"
             f"{tactics_content}\n"
             "--- END CUSTOM TACTICS ---\n"
         )

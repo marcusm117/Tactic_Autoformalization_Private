@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "condition": "baseline",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "reasoning_effort": "medium",
+    "num_problems": 58,
+    "num_solved": 22,
+    "pass_rate": 0.3793103448275862,
+    "avg_iterations": 3.8275862068965516,
+    "avg_iterations_correct": 1.9090909090909092
+  },
+  "with_tactics": {
+    "condition": "with_tactics",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "reasoning_effort": "medium",
+    "num_problems": 58,
+    "num_solved": 20,
+    "pass_rate": 0.3448275862068966,
+    "avg_iterations": 4.0,
+    "avg_iterations_correct": 2.1
+  }
+}

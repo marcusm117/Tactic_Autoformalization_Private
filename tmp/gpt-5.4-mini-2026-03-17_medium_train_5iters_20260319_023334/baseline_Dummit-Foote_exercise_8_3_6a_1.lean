@@ -1,0 +1,70 @@
+import Mathlib
+
+open Fintype Subgroup Set Polynomial Ideal
+open scoped BigOperators
+
+theorem exercise_8_3_6a {R : Type} [Ring R]
+  (hR : R = (GaussianInt ⧸ span ({⟨1, 1⟩} : Set GaussianInt))) :
+  IsField R ∧ ∃ finR : Fintype R, @card R finR = 2 := by
+  subst hR
+  classical
+  set I : Ideal GaussianInt := Ideal.span ({⟨1, 1⟩} : Set GaussianInt) with hI
+  have hgen : (⟨1, 1⟩ : GaussianInt) ∈ I := by
+    rw [hI]
+    exact Ideal.subset_span (by simp)
+  have h2 : (2 : GaussianInt) ∈ I := by
+    have hmul : (⟨1, -1⟩ : GaussianInt) * ⟨1, 1⟩ = (2 : GaussianInt) := by
+      ext <;> ring_nf
+    rw [← hmul]
+    exact Ideal.mul_mem_left _ _ hgen
+  have hclasses : ∀ x : GaussianInt ⧸ I, x = 0 ∨ x = 1 := by
+    intro x
+    refine Quotient.inductionOn x ?_
+    intro g
+    have hcalc : g - ((g.re - g.im : Int) : GaussianInt) = (g.im : GaussianInt) * ⟨1, 1⟩ := by
+      ext <;> simp [sub_eq_add_neg]
+      · omega
+      · rfl
+    have hdecomp :
+        (Ideal.Quotient.mk I g) = (Ideal.Quotient.mk I ((g.re - g.im : Int) : GaussianInt)) := by
+      apply Ideal.Quotient.eq.mpr
+      rw [hcalc]
+      exact Ideal.mul_mem_left _ _ hgen
+    rcases Int.even_or_odd (g.re - g.im) with ⟨k, hk⟩ | ⟨k, hk⟩
+    · have hq : (Ideal.Quotient.mk I ((g.re - g.im : Int) : GaussianInt)) = 0 := by
+        apply Ideal.Quotient.eq.mpr
+        rw [hk]
+        simpa [mul_comm] using (Ideal.mul_mem_left _ _ h2 : (k : GaussianInt) * (2 : GaussianInt) ∈ I)
+      simpa [hdecomp] using (Or.inl hq)
+    · have hk' : ((g.re - g.im : Int) : GaussianInt) - 1 = (2 * k : GaussianInt) := by
+        ext <;> simp [hk]
+        · omega
+        · rfl
+      have hq : (Ideal.Quotient.mk I ((g.re - g.im : Int) : GaussianInt)) = 1 := by
+        apply Ideal.Quotient.eq.mpr
+        rw [hk']
+        simpa [mul_comm] using (Ideal.mul_mem_left _ _ h2 : (k : GaussianInt) * (2 : GaussianInt) ∈ I)
+      simpa [hdecomp] using (Or.inr hq)
+  let e : (GaussianInt ⧸ I) ≃ Fin 2 :=
+    { toFun := fun x => if hx : x = 0 then 0 else 1
+      invFun := fun n => Fin.cases (0 : GaussianInt ⧸ I) 1 n
+      left_inv := by
+        intro x
+        by_cases hx0 : x = 0
+        · simp [hx0]
+        · have hx1 : x = 1 := by
+            rcases hclasses x with rfl | rfl
+            · contradiction
+            · rfl
+          simp [hx0, hx1]
+      right_inv := by
+        intro n
+        fin_cases n <;> rfl }
+  haveI : Fintype (GaussianInt ⧸ I) := Fintype.ofEquiv _ e
+  have hcard : Fintype.card (GaussianInt ⧸ I) = 2 := by
+    simpa using (Fintype.card_congr e)
+  have hfield : IsField (GaussianInt ⧸ I) := by
+    exact isField_of_card_eq_two hcard
+  refine ⟨hfield, ?_⟩
+  refine ⟨inferInstance, ?_⟩
+  simpa using hcard
