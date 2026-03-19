@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "source_file": "proof_strategies_top10.json",
+    "target_language": "Lean 4 (Mathlib)",
+    "description": "Each of the top 10 proof strategies is formalized as a Lean 4 tactic. Strategies that already have an exact 1:1 existing tactic are mapped directly (type='existing_mapping'). Strategies without a direct single-tactic equivalent have a new custom tactic defined (type='new_tactic').",
+    "note": "New tactics are defined using Lean 4 macro/elab syntax and depend on Mathlib. They encode the high-level proof pattern as an automated tactic that tries the characteristic sequence of moves for that strategy."
+  },
+  "proof_strategy_tactics": [
+    {
+      "rank": 1,
+      "name": "Direct Algebraic Computation / Chain of Equalities",
+      "type": "new_tactic",
+      "tactic_name": "algebraic_chain",
+      "rationale": "No single existing tactic covers the full pattern: the strategy combines ring normalization, group simplification, field clearing, and rewriting with algebraic lemmas. This tactic tries each in sequence.",
+      "lean_code": "import Mathlib\n\n/-- Tries to close an algebraic equality/identity goal by attempting\n    ring, group, field_simp+ring, and simp with common algebraic lemmas. -/\nmacro \"algebraic_chain\" : tactic =>\n  `(tactic|\n    first\n    | ring\n    | group\n    | (field_simp; ring)\n    | (ring_nf; simp [mul_comm, mul_assoc, add_comm, add_assoc,\n                      mul_inv_cancel, inv_mul_cancel])\n    | simp [mul_comm, mul_assoc, mul_left_comm,\n            add_comm, add_assoc, add_left_comm])",
+      "example_usage": "example (a b c : ℤ) : (a + b) * c = a * c + b * c := by algebraic_chain"
+    },
+    {
+      "rank": 2,
+      "name": "Proof by Contradiction",
+      "type": "existing_mapping",
+      "tactic_name": "by_contra",
+      "rationale": "Lean 4's built-in `by_contra` is an exact 1:1 match: it assumes the negation of the goal and changes the target to False, which is precisely the proof-by-contradiction pattern.",
+      "lean_code": null,
+      "existing_tactic": "by_contra",
+      "also_relevant": ["exfalso", "absurd", "push_neg"],
+      "example_usage": "example (n : ℕ) (h : n * n = 2) : False := by\n  by_contra _\n  omega"
+    },
+    {
+      "rank": 3,
+      "name": "Sylow Theorem Counting Arguments",
+      "type": "new_tactic",
+      "tactic_name": "sylow_counting",
+      "rationale": "There is no existing tactic that introduces Sylow constraints and resolves the resulting arithmetic. This tactic introduces the modular congruence and divisibility conditions on n_p into the context, then attempts omega/norm_num/decide to resolve the forced n_p = 1.",
+      "lean_code": "import Mathlib\n\nopen Fintype in\n/-- Introduces Sylow counting constraints for prime p in group G:\n    (1) card (Sylow p G) ≡ 1 [MOD p]\n    (2) card (Sylow p G) ∣ card G / p ^ (multiplicity p (card G))\n    Then tries omega, norm_num, and decide to resolve the arithmetic. -/\nmacro \"sylow_counting\" : tactic =>\n  `(tactic| do\n    have _h_mod := Sylow.card_sylow_modEq_one\n    have _h_dvd := card_sylow_dvd_index\n    first\n    | omega\n    | norm_num at *; omega\n    | decide\n    | skip)",
+      "example_usage": "-- For |G| = 351 = 27 * 13, showing the Sylow 13-subgroup is unique/normal\n-- sylow_counting would introduce n₁₃ ≡ 1 (mod 13) and n₁₃ | 27, forcing n₁₃ = 1"
+    },
+    {
+      "rank": 4,
+      "name": "Conjugation and Normality Arguments",
+      "type": "new_tactic",
+      "tactic_name": "show_normal",
+      "rationale": "Proving normality requires unfolding the definition (∀ g, ∀ n ∈ H, g * n * g⁻¹ ∈ H), introducing variables, and showing closure under conjugation. No single tactic does this. This tactic unfolds normality and tries to close conjugation-closure goals automatically.",
+      "lean_code": "import Mathlib\n\n/-- Proves a subgroup is normal by unfolding the normality condition\n    and attempting to close the conjugation-closure goal via\n    simp with conjugation lemmas, or by applying known normality\n    of constituent subgroups (e.g., for intersections). -/\nmacro \"show_normal\" : tactic =>\n  `(tactic|\n    constructor\n    · intro g x hx\n      first\n      | (simp only [Subgroup.mem_inf] at hx ⊢;\n         exact ⟨Subgroup.Normal.conj_mem ‹_› x hx.1 g,\n                Subgroup.Normal.conj_mem ‹_› x hx.2 g⟩)\n      | (exact Subgroup.Normal.conj_mem ‹_› x hx g)\n      | (simp [mul_assoc, mul_inv_cancel, inv_mul_cancel] at *;\n         assumption)\n      | group)",
+      "example_usage": "example [Group G] (H K : Subgroup G) [H.Normal] [K.Normal] :\n    (H ⊓ K).Normal := by show_normal"
+    },
+    {
+      "rank": 5,
+      "name": "Order, Index, and Divisibility Arguments (Lagrange's Theorem)",
+      "type": "new_tactic",
+      "tactic_name": "lagrange",
+      "rationale": "Lagrange-style arguments require introducing divisibility facts (|H| ∣ |G|, |a| ∣ |G|, index decomposition) and resolving arithmetic. No single tactic does this. This tactic floods the context with standard Lagrange-type facts and attempts to close the goal.",
+      "lean_code": "import Mathlib\n\n/-- Introduces Lagrange's theorem, order-divides-card, and index\n    identities into the context, then tries omega/norm_num to resolve\n    the resulting divisibility/arithmetic constraints. -/\nmacro \"lagrange\" : tactic =>\n  `(tactic| do\n    try have := Subgroup.card_subgroup_dvd_card ‹_›\n    try have := orderOf_dvd_card\n    try have := Subgroup.index_mul_card ‹_›\n    first\n    | omega\n    | norm_num at *; omega\n    | (simp only [Nat.dvd_iff_mod_eq_zero] at *; omega)\n    | skip)",
+      "example_usage": "-- For proving a^p ≡ a (mod p) via Fermat's little theorem:\n-- lagrange introduces |a| ∣ p-1 into context, then omega resolves"
+    },
+    {
+      "rank": 6,
+      "name": "Quotient Groups and Isomorphism Theorems",
+      "type": "new_tactic",
+      "tactic_name": "isomorphism_theorem",
+      "rationale": "Applying the correct isomorphism theorem (First, Second, or Third) requires matching the goal shape to the right lemma. No single tactic tries all three. This tactic attempts to apply each isomorphism theorem in sequence.",
+      "lean_code": "import Mathlib\n\n/-- Tries to close the goal by applying the First, Second, or Third\n    Isomorphism Theorem (for groups or rings). Attempts each standard\n    form and falls back to quotient-simplification. -/\nmacro \"isomorphism_theorem\" : tactic =>\n  `(tactic|\n    first\n    -- First Isomorphism Theorem (groups)\n    | exact QuotientGroup.quotientKerEquivRange ‹_›\n    -- First Isomorphism Theorem (rings)\n    | exact RingHom.quotientKerEquivOfSurjective ‹_› ‹_›\n    -- Second Isomorphism Theorem\n    | exact QuotientGroup.quotientInfEquivProdNormalQuotient ‹_› ‹_›\n    -- Third Isomorphism Theorem\n    | exact Subgroup.quotientQuotientEquivQuotient ‹_› ‹_› ‹_›\n    -- Fallback: simplify quotient expressions\n    | (simp only [QuotientGroup.eq', QuotientGroup.mk'_apply];\n       assumption))",
+      "example_usage": "example [Group G] (f : G →* H) (hf : Function.Surjective f) :\n    G ⧸ f.ker ≃* H := by isomorphism_theorem"
+    },
+    {
+      "rank": 7,
+      "name": "Element Counting / Pigeonhole Principle",
+      "type": "new_tactic",
+      "tactic_name": "elem_count",
+      "rationale": "Element counting arguments combine cardinality bounds from injections, unions/intersections, and then resolve an arithmetic contradiction. No single tactic automates this pipeline. This tactic simplifies cardinality expressions and tries to close the arithmetic.",
+      "lean_code": "import Mathlib\n\n/-- Simplifies Fintype.card / Finset.card expressions using\n    inclusion-exclusion and injection bounds, then tries to close\n    the resulting arithmetic via omega or linarith. -/\nmacro \"elem_count\" : tactic =>\n  `(tactic| do\n    try simp only [Fintype.card, Finset.card,\n                   Finset.card_union_add_card_inter,\n                   Finset.card_sdiff, Finset.card_filter]\n    try simp only [Nat.add_sub_cancel, Nat.sub_self]\n    first\n    | omega\n    | linarith\n    | norm_num at *; omega\n    | skip)",
+      "example_usage": "-- After establishing |elements of order 7| = 90 and |elements of order 5| = 80\n-- in a group of order 105, elem_count derives 90 + 80 > 105 → contradiction"
+    },
+    {
+      "rank": 8,
+      "name": "Double Inclusion / Biconditional Proof (Prove Both Directions)",
+      "type": "new_tactic",
+      "tactic_name": "double_inclusion",
+      "rationale": "Proving A = B by A ⊆ B ∧ B ⊆ A, or P ↔ Q by (→) and (←), requires detecting the goal shape and splitting accordingly. The existing `ext` and `constructor` each handle part of this; this tactic combines them and also handles the lattice-based le_antisymm pattern.",
+      "lean_code": "import Mathlib\n\n/-- Proves set/subgroup/ideal equality by double inclusion, or\n    iff by splitting into both directions. Detects the goal shape\n    and applies the appropriate splitting strategy. -/\nmacro \"double_inclusion\" : tactic =>\n  `(tactic|\n    first\n    -- Iff goal: split into two implications\n    | constructor\n    -- Set equality: extensionality then iff\n    | (ext; constructor)\n    -- Subgroup/Ideal equality via lattice antisymmetry\n    | (apply le_antisymm)\n    -- Set equality via subset antisymmetry\n    | (apply Set.Subset.antisymm))",
+      "example_usage": "example (A B : Set ℕ) (h1 : A ⊆ B) (h2 : B ⊆ A) : A = B := by\n  double_inclusion\n  · exact fun x hx => h1 hx\n  · exact fun x hx => h2 hx"
+    },
+    {
+      "rank": 9,
+      "name": "Counterexample / Explicit Construction",
+      "type": "new_tactic",
+      "tactic_name": "counterexample",
+      "rationale": "Disproving a universal statement (or proving existence) by exhibiting a concrete witness, then verifying it—often by brute-force over a finite type. The existing `decide` handles the verification, but the full pattern of 'exhibit + verify' needs wrapping. This tactic tries decide/native_decide for fully decidable goals, or norm_num for numeric witnesses.",
+      "lean_code": "import Mathlib\n\n/-- Tries to close the goal by brute-force evaluation over a finite/decidable\n    domain. For existential goals, tries norm_num (which can find numeric\n    witnesses). Falls back to native_decide for larger finite checks. -/\nmacro \"counterexample\" : tactic =>\n  `(tactic|\n    first\n    | decide\n    | native_decide\n    | norm_num\n    | (simp; decide)\n    | (simp; native_decide))",
+      "example_usage": "example : ¬ ∀ a b : Fin 3, a + b = b + a → a * b = b * a → a = b := by\n  counterexample"
+    },
+    {
+      "rank": 10,
+      "name": "Case Analysis",
+      "type": "existing_mapping",
+      "tactic_name": "rcases / by_cases",
+      "rationale": "Lean 4's `rcases` (destructing a hypothesis into disjunctive cases) and `by_cases` (splitting on a decidable proposition) are exact 1:1 matches for the case analysis pattern. Together with `interval_cases` and `fin_cases` for exhaustive enumeration, the existing tactic suite fully covers this strategy.",
+      "lean_code": null,
+      "existing_tactics": ["rcases", "by_cases", "interval_cases", "fin_cases", "cases", "split"],
+      "example_usage": "example (n : ℕ) (h : n ≤ 2) : n = 0 ∨ n = 1 ∨ n = 2 := by\n  interval_cases n <;> simp"
+    }
+  ]
+}

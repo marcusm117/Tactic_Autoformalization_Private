@@ -114,7 +114,7 @@ def main():
     print_report(results)
 
     # Optionally save results to JSON
-    output_path = project_root / "data" / "omnimath_domain_analysis.json"
+    output_path = script_dir / "Omni-Math_domain_analysis"
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=2)
     print(f"\n\nResults saved to: {output_path}")

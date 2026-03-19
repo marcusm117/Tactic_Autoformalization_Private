@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "source_file": "ProofNet-V_Artin_DummitFoote_train.csv",
+    "total_proofs_analyzed": 58,
+    "note": "Top 10 most common proof strategies. A single proof may use multiple strategies. Counts reflect the number of proofs in which each strategy appears as a key technique."
+  },
+  "proof_strategies": [
+    {
+      "rank": 1,
+      "name": "Direct Algebraic Computation / Chain of Equalities",
+      "description": "The proof proceeds by directly computing and simplifying algebraic expressions step by step, often presented as a chain of equalities. This includes verifying identities, expanding products, and applying known algebraic rules to reach the desired conclusion.",
+      "count": 18,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_1_1_3",
+          "summary": "Proves associativity of addition mod n by a direct chain of equalities: (a̅+b̅)+c̅ = ... = a̅+(b̅+c̅), using associativity of integer addition."
+        },
+        {
+          "id": "Dummit-Foote|exercise_7_1_2",
+          "summary": "Proves -u is a unit by directly computing (-v)(-u)=vu=1 and (-u)(-v)=uv=1."
+        },
+        {
+          "id": "Dummit-Foote|exercise_1_1_25",
+          "summary": "Proves G is abelian by direct computation: ab=(ab)^{-1}=b^{-1}a^{-1}=ba."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_1_1_2a",
+        "Artin|exercise_6_1_14",
+        "Artin|exercise_10_4_6",
+        "Dummit-Foote|exercise_3_1_3a",
+        "Dummit-Foote|exercise_7_1_2",
+        "Dummit-Foote|exercise_3_2_16",
+        "Artin|exercise_2_2_9",
+        "Dummit-Foote|exercise_1_1_3",
+        "Dummit-Foote|exercise_1_1_25",
+        "Dummit-Foote|exercise_1_1_22b",
+        "Artin|exercise_13_4_10",
+        "Dummit-Foote|exercise_7_2_12",
+        "Artin|exercise_10_1_13",
+        "Artin|exercise_11_2_13",
+        "Dummit-Foote|exercise_8_3_6a",
+        "Dummit-Foote|exercise_1_1_4",
+        "Dummit-Foote|exercise_1_1_17",
+        "Dummit-Foote|exercise_8_1_12"
+      ]
+    },
+    {
+      "rank": 2,
+      "name": "Proof by Contradiction",
+      "description": "Assume the negation of the desired conclusion (or assume a hypothesis that should fail), then derive a logical contradiction—such as violating minimality, exceeding group order via element counts, or producing an impossible arithmetic equation.",
+      "count": 8,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_1_1_34",
+          "summary": "Assumes x^a = x^b for distinct 0 ≤ a < b ≤ n-1, derives x^{b-a}=1 with 1 ≤ b-a < n, contradicting minimality of the order n."
+        },
+        {
+          "id": "Dummit-Foote|exercise_9_4_9",
+          "summary": "Assumes x²−√2 is reducible over Z[√2], substitutes a root a+b√2, derives 2ab=1 for integers a,b—a contradiction."
+        },
+        {
+          "id": "Artin|exercise_11_13_3",
+          "summary": "Euclid-style: assumes finitely many primes ≡ 3 (mod 4), constructs a=4p₂⋯pₙ+3 not divisible by any of them, uses a lemma to get a contradiction."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_4_5_17",
+        "Dummit-Foote|exercise_1_1_34",
+        "Dummit-Foote|exercise_9_4_9",
+        "Artin|exercise_3_5_6",
+        "Dummit-Foote|exercise_1_1_22a",
+        "Dummit-Foote|exercise_2_4_16b",
+        "Artin|exercise_11_13_3",
+        "Dummit-Foote|exercise_4_2_9a"
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "Sylow Theorem Counting Arguments",
+      "description": "Uses the Sylow theorems to constrain the number n_p of Sylow p-subgroups: n_p ≡ 1 (mod p) and n_p divides [G:P]. When the constraints force n_p = 1, the unique Sylow p-subgroup is normal. Often combined with element counting when multiple primes are involved.",
+      "count": 7,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_4_5_14",
+          "summary": "|G|=351=3².13. n₁₃ = 1+13k must divide 9, forcing k=0, so the unique 13-Sylow subgroup is normal."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_5_23",
+          "summary": "|G|=462=11·42. n₁₁ ≡ 1 (mod 11) and n₁₁ | 42, forcing n₁₁=1, so the Sylow 11-subgroup is normal."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_5_17",
+          "summary": "|G|=105=3·5·7. Systematically constrains n₇, n₅, n₃ using Sylow counting and element counting to show at least one Sylow subgroup is normal."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_4_5_33",
+        "Dummit-Foote|exercise_4_5_17",
+        "Dummit-Foote|exercise_4_5_14",
+        "Dummit-Foote|exercise_4_5_1a",
+        "Dummit-Foote|exercise_4_5_28",
+        "Dummit-Foote|exercise_4_5_20",
+        "Dummit-Foote|exercise_4_5_23"
+      ]
+    },
+    {
+      "rank": 4,
+      "name": "Conjugation and Normality Arguments",
+      "description": "Proves a subgroup is normal by directly showing gHg⁻¹ ⊆ H for all g ∈ G, or uses conjugation to establish commutativity or centrality of elements. The key step is showing that conjugating any element of the subgroup keeps it within the subgroup.",
+      "count": 6,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_3_1_22a",
+          "summary": "Shows H∩K is normal: for x ∈ H∩K, gxg⁻¹ ∈ H (since H ◁ G) and gxg⁻¹ ∈ K (since K ◁ G), so gxg⁻¹ ∈ H∩K."
+        },
+        {
+          "id": "Dummit-Foote|exercise_3_2_11",
+          "summary": "Shows intersection of normal subgroups is normal: for n ∈ ∩N_α, gng⁻¹ ∈ N_α for each α, hence gng⁻¹ ∈ ∩N_α."
+        },
+        {
+          "id": "Artin|exercise_2_4_19",
+          "summary": "Shows element of order 2 is central: conjugate z=y⁻¹xy has z²=e, so z=x (unique element of order 2), giving xy=yx."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_3_4_5a",
+        "Artin|exercise_2_4_19",
+        "Dummit-Foote|exercise_3_1_22a",
+        "Dummit-Foote|exercise_3_2_11",
+        "Dummit-Foote|exercise_3_1_22b",
+        "Dummit-Foote|exercise_4_3_26"
+      ]
+    },
+    {
+      "rank": 5,
+      "name": "Order, Index, and Divisibility Arguments (Lagrange's Theorem)",
+      "description": "Uses the fact that the order of a subgroup divides the order of the group (Lagrange), or that the index factors as [G:H] = [G:K][K:H], or that the order of an element divides the group order, to constrain possibilities and draw conclusions.",
+      "count": 6,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_4_2_14",
+          "summary": "A subgroup of index p (the smallest prime dividing |G|) is normal—a direct index argument."
+        },
+        {
+          "id": "Dummit-Foote|exercise_3_2_16",
+          "summary": "Uses |a| divides |(Z/pZ)×| = p-1 (Lagrange) to prove Fermat's little theorem: a^p ≡ a (mod p)."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_5_1a",
+          "summary": "Uses [G:P]=[G:H][H:P] so if p∤[G:P] then p∤[H:P], showing P is also a Sylow p-subgroup of H."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_4_2_14",
+        "Dummit-Foote|exercise_3_2_16",
+        "Dummit-Foote|exercise_4_5_33",
+        "Dummit-Foote|exercise_4_5_1a",
+        "Artin|exercise_2_11_3",
+        "Dummit-Foote|exercise_4_2_9a"
+      ]
+    },
+    {
+      "rank": 6,
+      "name": "Quotient Groups and Isomorphism Theorems",
+      "description": "Uses the First, Second, or Third Isomorphism Theorem, or constructs and analyzes quotient structures (G/H, R/I) to transfer information between groups/rings. Includes passing to quotients to simplify analysis and using canonical projections.",
+      "count": 5,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_3_4_5a",
+          "summary": "Uses the Second Isomorphism Theorem: H_{i+1}/H_i ≅ H_{i+1}G_i/G_i ≤ G_{i+1}/G_i, so each factor is abelian."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_5_28",
+          "summary": "Passes to G/P, analyzes Sylow subgroups of the quotient, then pulls back via the canonical map π to get normal subgroups of G."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_2_9a",
+          "summary": "Uses the First Isomorphism Theorem: G/K ↪ S_p, so |G/K| divides p!, constraining the kernel K."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_3_1_3a",
+        "Dummit-Foote|exercise_3_4_5a",
+        "Dummit-Foote|exercise_4_5_28",
+        "Dummit-Foote|exercise_8_3_6b",
+        "Dummit-Foote|exercise_4_2_9a"
+      ]
+    },
+    {
+      "rank": 7,
+      "name": "Element Counting / Pigeonhole Principle",
+      "description": "Counts elements of specific orders or in specific substructures to derive constraints, often leading to a contradiction (too many elements) or establishing the size of a quotient/subgroup. Includes pairing arguments and coset counting.",
+      "count": 5,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_4_5_17",
+          "summary": "Counts elements of order 5, 7, and 3 in G of order 105; 90 of order 7 + 96 of order 5 = 186 > 105, a contradiction."
+        },
+        {
+          "id": "Artin|exercise_2_11_3",
+          "summary": "Pairs each element g with g⁻¹; since |G| is even and e is unpaired, there must be at least one other element a with a=a⁻¹, i.e., a²=e."
+        },
+        {
+          "id": "Artin|exercise_3_7_2",
+          "summary": "Counts vectors in v+Fu to bound |F| ≤ n-1 when V is a union of n proper subspaces."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_4_5_17",
+        "Artin|exercise_2_11_3",
+        "Dummit-Foote|exercise_8_3_6a",
+        "Dummit-Foote|exercise_8_3_6b",
+        "Artin|exercise_3_7_2"
+      ]
+    },
+    {
+      "rank": 8,
+      "name": "Double Inclusion / Biconditional Proof (Prove Both Directions)",
+      "description": "Proves set equality A = B by showing A ⊆ B and B ⊆ A separately, or proves an 'if and only if' statement by proving both implications (⟹ and ⟸) independently.",
+      "count": 4,
+      "examples": [
+        {
+          "id": "Artin|exercise_10_2_4",
+          "summary": "Proves (2x) = (2)∩(x) by showing (2x) ⊆ (2)∩(x) and (2)∩(x) ⊆ (2x) with separate containment arguments."
+        },
+        {
+          "id": "Dummit-Foote|exercise_1_1_29",
+          "summary": "Proves A×B abelian ⟺ A and B abelian, with separate (⟹) and (⟸) arguments using component-wise computation."
+        },
+        {
+          "id": "Dummit-Foote|exercise_1_1_16",
+          "summary": "Proves x²=1 ⟺ |x| divides 2, with (⟹) and (⟸) handled separately."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_1_1_16",
+        "Dummit-Foote|exercise_1_1_29",
+        "Artin|exercise_10_2_4",
+        "Dummit-Foote|exercise_2_4_4"
+      ]
+    },
+    {
+      "rank": 9,
+      "name": "Counterexample / Explicit Construction",
+      "description": "Proves existence (or disproves universality) by constructing a specific, concrete example that satisfies (or violates) the required conditions. Includes brute-force verification over finite sets.",
+      "count": 3,
+      "examples": [
+        {
+          "id": "Dummit-Foote|exercise_1_1_2a",
+          "summary": "Shows ⋆ on Z is not commutative by computing 1⋆(−1) = 2 ≠ −2 = (−1)⋆1."
+        },
+        {
+          "id": "Dummit-Foote|exercise_4_4_6b",
+          "summary": "Constructs Klein four group G={e,a,b,ab} and H={e,a}; defines automorphism σ swapping a↔b to show H is normal but not characteristic."
+        },
+        {
+          "id": "Artin|exercise_11_4_6c",
+          "summary": "Checks all elements of F₃₁ by brute force to verify x³−9 has no roots, proving irreducibility."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_1_1_2a",
+        "Artin|exercise_11_4_6c",
+        "Dummit-Foote|exercise_4_4_6b"
+      ]
+    },
+    {
+      "rank": 10,
+      "name": "Case Analysis",
+      "description": "Breaks the proof into exhaustive cases based on different conditions or values of a parameter, and handles each case separately.",
+      "count": 3,
+      "examples": [
+        {
+          "id": "Artin|exercise_10_6_7",
+          "summary": "Considers three cases for z=a+bi ∈ I: (1) b=0, (2) a=0, (3) both a,b ≠ 0, handling each separately."
+        },
+        {
+          "id": "Dummit-Foote|exercise_1_1_16",
+          "summary": "Cases |x|=1 and |x|=2 are handled separately in the (⟸) direction."
+        },
+        {
+          "id": "Dummit-Foote|exercise_1_1_22a",
+          "summary": "Handles cases: |x| infinite, |x| and |g⁻¹xg| both finite, then shows m=n by mutual divisibility."
+        }
+      ],
+      "all_exercise_ids": [
+        "Dummit-Foote|exercise_1_1_16",
+        "Artin|exercise_10_6_7",
+        "Dummit-Foote|exercise_1_1_22a"
+      ]
+    }
+  ]
+}
